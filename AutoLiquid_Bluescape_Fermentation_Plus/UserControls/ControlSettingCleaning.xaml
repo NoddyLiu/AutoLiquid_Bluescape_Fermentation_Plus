@@ -140,9 +140,10 @@
                     <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitMilliliter}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadSpeed}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                    <TextBox x:Name="TextBoxCleaningHeadSpeed" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadSpeed}" FontSize="{StaticResource MahApps.Font.Size.Default}" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                    <!--<TextBox x:Name="TextBoxCleaningHeadSpeed" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" />-->
+                    <ComboBox x:Name="ComboBoxCleaningHeadSpeed" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
                     <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadJetAirDelay}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>

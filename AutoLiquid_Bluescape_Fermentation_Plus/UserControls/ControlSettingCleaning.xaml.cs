@@ -80,7 +80,9 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             this.TextBoxCleaningHeadAbsorbAirAfterAbsorb.Text = ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterAbsorb.ToString();
 
             this.TextBoxCleaningHeadAbsorbAirAfterJet.Text = ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJet.ToString();
-            this.TextBoxCleaningHeadSpeed.Text = ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJetSpeed;
+            //this.TextBoxCleaningHeadSpeed.Text = ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJetSpeed;
+            this.ComboBoxCleaningHeadSpeed.ItemsSource = Enumerable.Range(0, 41).Select(x => x.ToString()).ToList();
+            this.ComboBoxCleaningHeadSpeed.SelectedItem = ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJetSpeed;
             this.TextBoxCleaningHeadJetAirDelay.Text = ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadJetAirDelay.ToString();
             this.TextBoxOpenPumpDelay.Text = ParamsHelper.CommonSettingList[this.mHeadIndex].OpenPumpDelay.ToString();
         }
@@ -119,7 +121,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             this.TextBoxCleaningHeadAbsorbAirAfterAbsorb.TextChanged += TextBoxOnTextChanged;
 
             this.TextBoxCleaningHeadAbsorbAirAfterJet.TextChanged += TextBoxOnTextChanged;
-            this.TextBoxCleaningHeadSpeed.TextChanged += TextBoxOnTextChanged;
+            //this.TextBoxCleaningHeadSpeed.TextChanged += TextBoxOnTextChanged;
+            this.ComboBoxCleaningHeadSpeed.SelectionChanged += ComboBoxSelectionChanged;
             this.TextBoxCleaningHeadJetAirDelay.TextChanged += TextBoxOnTextChanged;
             this.TextBoxOpenPumpDelay.TextChanged += TextBoxOnTextChanged;
 
@@ -186,12 +189,20 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
 
             else if (sender.Equals(this.TextBoxCleaningHeadAbsorbAirAfterJet))
                 DataHelper.SaveDecimal(this.mHeadIndex, this.TextBoxCleaningHeadAbsorbAirAfterJet.Text.Trim(), ref ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJet);
-            else if (sender.Equals(this.TextBoxCleaningHeadSpeed))
-                DataHelper.SaveString(this.mHeadIndex, this.TextBoxCleaningHeadSpeed.Text.Trim(), ref ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJetSpeed);
+            //else if (sender.Equals(this.TextBoxCleaningHeadSpeed))
+            //    DataHelper.SaveString(this.mHeadIndex, this.TextBoxCleaningHeadSpeed.Text.Trim(), ref ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJetSpeed);
             else if (sender.Equals(this.TextBoxCleaningHeadJetAirDelay))
                 DataHelper.SaveDecimal(this.mHeadIndex, this.TextBoxCleaningHeadJetAirDelay.Text.Trim(), ref ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadJetAirDelay);
             else if (sender.Equals(this.TextBoxOpenPumpDelay))
                 DataHelper.SaveDecimal(this.mHeadIndex, this.TextBoxOpenPumpDelay.Text.Trim(), ref ParamsHelper.CommonSettingList[this.mHeadIndex].OpenPumpDelay);
+        }
+
+        private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.ComboBoxCleaningHeadSpeed.SelectedItem is string value)
+            {
+                DataHelper.SaveString(this.mHeadIndex, value, ref ParamsHelper.CommonSettingList[this.mHeadIndex].CleaningHeadAbsorbAirAfterJetSpeed);
+            }
         }
 
         // private void BtnOnClick(object sender, RoutedEventArgs e)

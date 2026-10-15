@@ -45,6 +45,7 @@
     <s:Double x:Key="SettingUnitWidth">50</s:Double>
     <s:Double x:Key="SettingGroupBoxTitleFontSize">15</s:Double>
     <s:Double x:Key="SettingSpeedWidth">195</s:Double>
+    <s:Double x:Key="SettingPumpSpeedWidth">65</s:Double>
     <s:Double x:Key="BtnTrimmingWidth">23</s:Double>
     <s:Double x:Key="DataGridRowHeight">40</s:Double>
     <s:Double x:Key="DataGridRowHeaderNumWidth">30</s:Double>

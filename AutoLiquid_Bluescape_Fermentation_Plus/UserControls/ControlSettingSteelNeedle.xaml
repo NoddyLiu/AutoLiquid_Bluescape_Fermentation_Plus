@@ -48,8 +48,9 @@
                 <Label HorizontalContentAlignment="Center" Content="{StaticResource RunTimeSingleHole}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <TextBox x:Name="TextBoxRunTimeSingleHole14" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <Label Content="{StaticResource UnitSec}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0"/>
-                <TextBox x:Name="TextBoxSpeedAbsorbAndJet14" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                <!--<TextBox x:Name="TextBoxSpeedAbsorbAndJet14" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>-->
+                <ComboBox x:Name="ComboBoxSpeedAbsorbAndJet14" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
             </StackPanel>
 
             <!--15#-->
@@ -59,8 +60,9 @@
                 <Label HorizontalContentAlignment="Center" Content="{StaticResource RunTimeSingleHole}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <TextBox x:Name="TextBoxRunTimeSingleHole15" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <Label Content="{StaticResource UnitSec}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0"/>
-                <TextBox x:Name="TextBoxSpeedAbsorbAndJet15" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                <!--<TextBox x:Name="TextBoxSpeedAbsorbAndJet15" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>-->
+                <ComboBox x:Name="ComboBoxSpeedAbsorbAndJet15" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
             </StackPanel>
 
             <!--16#-->
@@ -70,8 +72,9 @@
                 <Label HorizontalContentAlignment="Center" Content="{StaticResource RunTimeSingleHole}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <TextBox x:Name="TextBoxRunTimeSingleHole16" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <Label Content="{StaticResource UnitSec}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0"/>
-                <TextBox x:Name="TextBoxSpeedAbsorbAndJet16" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                <!--<TextBox x:Name="TextBoxSpeedAbsorbAndJet16" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>-->
+                <ComboBox x:Name="ComboBoxSpeedAbsorbAndJet16" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
             </StackPanel>
 
             <!--17#-->
@@ -81,8 +84,9 @@
                 <Label HorizontalContentAlignment="Center" Content="{StaticResource RunTimeSingleHole}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <TextBox x:Name="TextBoxRunTimeSingleHole17" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <Label Content="{StaticResource UnitSec}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0"/>
-                <TextBox x:Name="TextBoxSpeedAbsorbAndJet17" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                <!--<TextBox x:Name="TextBoxSpeedAbsorbAndJet17" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>-->
+                <ComboBox x:Name="ComboBoxSpeedAbsorbAndJet17" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
             </StackPanel>
 
             <!--18#-->
@@ -92,8 +96,9 @@
                 <Label HorizontalContentAlignment="Center" Content="{StaticResource RunTimeSingleHole}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <TextBox x:Name="TextBoxRunTimeSingleHole18" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                 <Label Content="{StaticResource UnitSec}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0"/>
-                <TextBox x:Name="TextBoxSpeedAbsorbAndJet18" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedAbsorbAndJet}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="15,0,0,0" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                <!--<TextBox x:Name="TextBoxSpeedAbsorbAndJet18" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>-->
+                <ComboBox x:Name="ComboBoxSpeedAbsorbAndJet18" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
             </StackPanel>
         </StackPanel>
     </Grid>

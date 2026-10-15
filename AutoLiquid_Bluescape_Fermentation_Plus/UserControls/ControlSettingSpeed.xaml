@@ -73,7 +73,7 @@
             </GroupBox>
 
             <!--P轴-->
-            <GroupBox Header="{StaticResource AxisP}" Margin="0,5,0,0">
+            <GroupBox Header="{StaticResource AxisP}" Margin="0,5,0,0" Visibility="Collapsed">
                 <StackPanel Orientation="Vertical">
                     <!--吸液速度-->
                     <StackPanel Orientation="Horizontal">

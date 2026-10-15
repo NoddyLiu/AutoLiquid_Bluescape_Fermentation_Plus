@@ -415,4 +415,5 @@
     <s:String x:Key="Prompt_Wait_Non_Block_Start_Time">即从哪一个步骤序号开始计算等待时间！</s:String>
     <s:String x:Key="Prompt_Port_Name_Tooltip">重选串口号后请重新打开软件！</s:String>
     <s:String x:Key="Prompt_Pump_Disconnect_Pls_Check_Again">注射泵未连接，请检查！</s:String>
+    <s:String x:Key="Prompt_Speed_Level_Hint">范围0~40。数值越大，速度越慢</s:String>
 </ResourceDictionary>
