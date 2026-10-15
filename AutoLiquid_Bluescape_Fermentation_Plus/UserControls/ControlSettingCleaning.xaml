@@ -1,0 +1,163 @@
+﻿<UserControl x:Class="AutoLiquid_Bluescape_Fermentation_Plus.UserControls.ControlSettingCleaning"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             Background="White">
+    <UserControl.Resources>
+    </UserControl.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <!--标题-->
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <Label  Width="{StaticResource BtnTrimmingWidth}"/>
+                    <Label  Width="{StaticResource SettingHoleValueWidth}" HorizontalContentAlignment="Center" Content="{StaticResource ValueX}" FontSize="{StaticResource SettingTitleFontSize}" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
+                    <Label  Width="{StaticResource BtnTrimmingWidth}"/>
+                    <Label  Width="{StaticResource SettingHoleValueWidth}" HorizontalContentAlignment="Center" Content="{StaticResource ValueY}" FontSize="{StaticResource SettingTitleFontSize}" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="6">
+                    <Label  Width="{StaticResource BtnTrimmingWidth}"/>
+                    <Label  Width="{StaticResource SettingHoleValueWidth}" HorizontalContentAlignment="Center" Content="{StaticResource ValueZ}" FontSize="{StaticResource SettingTitleFontSize}" FontWeight="Bold"/>
+                </StackPanel>
+                <!--清洗区位置1-->
+                <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource CleaningPos1}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label Grid.Row="1" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <local:ControlSettingPos Grid.Row="1" Grid.Column="2" x:Name="ControlCleaningPos1X"/>
+                <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <local:ControlSettingPos Grid.Row="1" Grid.Column="4" x:Name="ControlCleaningPos1Y"/>
+                <Label Grid.Row="1" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <local:ControlSettingPos Grid.Row="1" Grid.Column="6" x:Name="ControlCleaningPos1Z"/>
+                <!--清洗区位置2-->
+                <Label Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource CleaningPos2}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <Label Grid.Row="2" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="2" Grid.Column="2" x:Name="ControlCleaningPos2X" Margin="0,3,0,0"/>
+                <Label Grid.Row="2" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="2" Grid.Column="4" x:Name="ControlCleaningPos2Y" Margin="0,3,0,0"/>
+                <Label Grid.Row="2" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="2" Grid.Column="6" x:Name="ControlCleaningPos2Z" Margin="0,3,0,0"/>
+                <!--清洗区位置3-->
+                <Label Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource CleaningPos3}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <Label Grid.Row="3" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="3" Grid.Column="2" x:Name="ControlCleaningPos3X" Margin="0,3,0,0"/>
+                <Label Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="3" Grid.Column="4" x:Name="ControlCleaningPos3Y" Margin="0,3,0,0"/>
+                <Label Grid.Row="3" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="3" Grid.Column="6" x:Name="ControlCleaningPos3Z" Margin="0,3,0,0"/>
+                <!--清洗区位置4-->
+                <Label Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource CleaningPos4}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <Label Grid.Row="4" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="4" Grid.Column="2" x:Name="ControlCleaningPos4X" Margin="0,3,0,0"/>
+                <Label Grid.Row="4" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="4" Grid.Column="4" x:Name="ControlCleaningPos4Y" Margin="0,3,0,0"/>
+                <Label Grid.Row="4" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="4" Grid.Column="6" x:Name="ControlCleaningPos4Z" Margin="0,3,0,0"/>
+                <!--清洗区位置5-->
+                <Label Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource CleaningPos5}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <Label Grid.Row="5" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="5" Grid.Column="2" x:Name="ControlCleaningPos5X" Margin="0,3,0,0"/>
+                <Label Grid.Row="5" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="5" Grid.Column="4" x:Name="ControlCleaningPos5Y" Margin="0,3,0,0"/>
+                <Label Grid.Row="5" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="5" Grid.Column="6" x:Name="ControlCleaningPos5Z" Margin="0,3,0,0"/>
+                <!--清洗区位置6-->
+                <Label Grid.Row="6" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource CleaningPos6}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <Label Grid.Row="6" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="6" Grid.Column="2" x:Name="ControlCleaningPos6X" Margin="0,3,0,0"/>
+                <Label Grid.Row="6" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="6" Grid.Column="4" x:Name="ControlCleaningPos6Y" Margin="0,3,0,0"/>
+                <Label Grid.Row="6" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" Margin="0,3,0,0"/>
+                <local:ControlSettingPos Grid.Row="6" Grid.Column="6" x:Name="ControlCleaningPos6Z" Margin="0,3,0,0"/>
+            </Grid>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource AbsorbAirBeforeCleaning}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxAbsorbAirBeforeCleaning" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0.0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitMilliliter}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" ToolTip="{StaticResource Prompt_Volume_Cleaning_Head_Absorb_Liquid_Volume}">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource VolumeLiquidCleaningHead}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxVolumeLiquidCleaningHead" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0.0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitMilliliter}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" ToolTip="{StaticResource Prompt_Volume_Cleaning_Head_With_Air}">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource VolumeAirCleaningHead}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxVolumeAirCleaningHead" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0.0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitMilliliter}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource TimeCleaningHead}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxTimeCleaningHead" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitTime}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadAbsorbAirAfterAbsorb}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxCleaningHeadAbsorbAirAfterAbsorb" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0.0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitMilliliter}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+            </StackPanel>
+
+
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                <StackPanel Orientation="Horizontal" ToolTip="{StaticResource Prompt_Volume_Cleaning_Head_After_Valve_Open}">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadAbsorbAirAfterJet}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxCleaningHeadAbsorbAirAfterJet" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0.0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="{StaticResource UnitMilliliter}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadSpeed}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxCleaningHeadSpeed" Width="{StaticResource SettingSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource CleaningHeadJetAirDelay}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxCleaningHeadJetAirDelay" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="s" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                    <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource OpenPumpDelay}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    <TextBox x:Name="TextBoxOpenPumpDelay" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                    <Label Width="{StaticResource SettingUnitWidth}" Content="s" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

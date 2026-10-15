@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAERun", "DAERun.csproj", "{2AA8F04F-AC69-4F85-9417-CAAD1FB09F6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoTest", "..\MoTest\MoTest.csproj", "{ACD86F35-0B5B-4F3F-9606-DC1645351804}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2AA8F04F-AC69-4F85-9417-CAAD1FB09F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AA8F04F-AC69-4F85-9417-CAAD1FB09F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AA8F04F-AC69-4F85-9417-CAAD1FB09F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AA8F04F-AC69-4F85-9417-CAAD1FB09F6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACD86F35-0B5B-4F3F-9606-DC1645351804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACD86F35-0B5B-4F3F-9606-DC1645351804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACD86F35-0B5B-4F3F-9606-DC1645351804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACD86F35-0B5B-4F3F-9606-DC1645351804}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+EndGlobal

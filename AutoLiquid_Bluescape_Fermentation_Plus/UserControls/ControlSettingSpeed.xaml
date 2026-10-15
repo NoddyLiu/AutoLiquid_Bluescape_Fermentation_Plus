@@ -1,0 +1,198 @@
+﻿<UserControl x:Class="AutoLiquid_Bluescape_Fermentation_Plus.UserControls.ControlSettingSpeed"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1800"
+             Background="White">
+    <UserControl.Resources>
+        <system:Double x:Key="SpeedCmdItemWidth">173</system:Double>
+        <system:Double x:Key="SpeedCmdValueWidth">130</system:Double>
+        <system:Double x:Key="SpeedPercentItemWidth">80</system:Double>
+        <system:Double x:Key="SpeedPercentValueWidth">60</system:Double>
+    </UserControl.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid>
+            
+                <!--X轴-->
+                <GroupBox Grid.Column="0" Header="{StaticResource AxisX}" >
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedXCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedXPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+            </Grid>
+            <!--Y轴-->
+            <GroupBox Grid.Column="1" Header="{StaticResource AxisY}" Margin="0,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                        <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        <TextBox x:Name="TextBoxSpeedYCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                        <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        <TextBox x:Name="TextBoxSpeedYPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <!--Z轴-->
+            <GroupBox Header="{StaticResource AxisZ}" Margin="0,5,0,0">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedZCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedZPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <!--P轴-->
+            <GroupBox Header="{StaticResource AxisP}" Margin="0,5,0,0">
+                <StackPanel Orientation="Vertical">
+                    <!--吸液速度-->
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedPCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedPPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!--喷液速度-->
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedJet1Cmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedJet1Cmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedJet1Percent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+
+                        <Rectangle Fill="LightGray" Width="2" Margin="15,0,0,0"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedJet2Cmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedJet2Cmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedJet2Percent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource VolumeJet2}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxVolumeJet2" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                            <Label Content="μl" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+
+                        <Rectangle Fill="LightGray" Width="2" Margin="15,0,0,0"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource DelayBetweenJet}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxDelayBetweenJet" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
+                            <Label Content="ms" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <!---M轴-->
+            <GroupBox Header="{StaticResource AxisM}" Margin="0,5,0,0">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedMCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedMPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <!--清洗区进液轴-->
+            <GroupBox Header="{StaticResource AxisW}" Margin="0,5,0,0" Visibility="Collapsed">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedWCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedWPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <!--清洗区排液轴-->
+            <GroupBox Header="{StaticResource AxisQ}" Margin="0,5,0,0" Visibility="Collapsed">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource SpeedCmd}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedCmdItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedQCmd" Width="{StaticResource SpeedCmdValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label HorizontalContentAlignment="Center" Content="{StaticResource Percent}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SpeedPercentItemWidth}"/>
+                            <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <TextBox x:Name="TextBoxSpeedQPercent" Width="{StaticResource SpeedPercentValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                            <Label Content="%" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

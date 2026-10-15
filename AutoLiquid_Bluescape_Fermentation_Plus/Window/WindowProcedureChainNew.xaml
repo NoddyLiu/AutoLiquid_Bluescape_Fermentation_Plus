@@ -1,0 +1,25 @@
+﻿<metro:MetroWindow x:Class="AutoLiquid_Bluescape_Fermentation_Plus.Window.WindowProcedureChainNew"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.Window"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        mc:Ignorable="d"
+        Title="{StaticResource ProcedureNew}" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" GlowBrush="{DynamicResource 	MahApps.Brushes.Accent}">
+    <Grid Margin="20">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Label Content="{StaticResource ProcedureName}" Width="60"/>
+                <Label Content=":"/>
+                <ComboBox x:Name="ComboBoxProcedures" Width="120"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                <Button x:Name="BtnConfirm" Content="{StaticResource Confirm}" HorizontalAlignment="Right" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="45" Height="30" />
+                <Button x:Name="BtnCancel" Content="{StaticResource Cancel}" HorizontalAlignment="Right" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="45" Height="30" Margin="5,0,0,0"/>
+            </StackPanel>
+            
+        </StackPanel>
+    </Grid>
+</metro:MetroWindow>

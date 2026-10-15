@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="AutoLiquid_Bluescape_Fermentation_Plus.UserControls.ControlSettingTemp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             Background="White">
+    <UserControl.Resources>
+        <system:Double x:Key="SpeedCmdItemWidth">173</system:Double>
+        <system:Double x:Key="SpeedCmdValueWidth">130</system:Double>
+        <system:Double x:Key="SpeedPercentItemWidth">80</system:Double>
+        <system:Double x:Key="SpeedPercentValueWidth">60</system:Double>
+    </UserControl.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <!--留样区温度补偿值-->
+            <StackPanel Orientation="Horizontal">
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource CoolTempSampleCompensation}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SettingTitleWidth}"/>
+                <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <TextBox x:Name="TextBoxCoolTempSampleCompensation" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label Content="°C" FontSize="{StaticResource MahApps.Font.Size.Default}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <!--留样区当前温度-->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                <Label Content="{StaticResource CurrentTempSample}" FontSize="{StaticResource MahApps.Font.Size.Default}" VerticalContentAlignment="Center" Margin="20,0,0,0" Foreground="Green"/>
+                <Label x:Name="LabelCurrentCoolTempSample" Content="0.0" FontSize="{StaticResource MahApps.Font.Size.Default}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,0,0,0" Width="50" Foreground="Green"/>
+                <Label Content="°C" FontSize="{StaticResource MahApps.Font.Size.Default}" VerticalContentAlignment="Center" Foreground="Green"/>
+            </StackPanel>
+
+            <!--留样区制冷温度-->
+            <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                <Label HorizontalContentAlignment="Center" Content="{StaticResource CoolTempSample}" FontSize="{StaticResource MahApps.Font.Size.Default}" Width="{StaticResource SettingTitleWidth}"/>
+                <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <TextBox x:Name="TextBoxCoolTempSample" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label Content="°C" FontSize="{StaticResource MahApps.Font.Size.Default}" VerticalContentAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

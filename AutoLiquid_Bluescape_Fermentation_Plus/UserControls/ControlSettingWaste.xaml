@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="AutoLiquid_Bluescape_Fermentation_Plus.UserControls.ControlSettingWaste"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             Background="White">
+    <UserControl.Resources>
+    </UserControl.Resources>
+
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <!--标题-->
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2">
+                    <Label  Width="{StaticResource BtnTrimmingWidth}"/>
+                    <Label  Width="{StaticResource SettingHoleValueWidth}" HorizontalContentAlignment="Center" Content="{StaticResource ValueX}" FontSize="{StaticResource SettingTitleFontSize}" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="4">
+                    <Label  Width="{StaticResource BtnTrimmingWidth}"/>
+                    <Label  Width="{StaticResource SettingHoleValueWidth}" HorizontalContentAlignment="Center" Content="{StaticResource ValueY}" FontSize="{StaticResource SettingTitleFontSize}" FontWeight="Bold"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="6">
+                    <Label  Width="{StaticResource BtnTrimmingWidth}"/>
+                    <Label  Width="{StaticResource SettingHoleValueWidth}" HorizontalContentAlignment="Center" Content="{StaticResource ValueZ}" FontSize="{StaticResource SettingTitleFontSize}" FontWeight="Bold"/>
+                </StackPanel>
+                <!--废液槽位置-->
+                <Label Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" Content="{StaticResource WastePos}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <Label Grid.Row="1" Grid.Column="1" Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <local:ControlSettingPos Grid.Row="1" Grid.Column="2" x:Name="ControlWastePosX"/>
+                <Label Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <local:ControlSettingPos Grid.Row="1" Grid.Column="4" x:Name="ControlWastePosY"/>
+                <Label Grid.Row="1" Grid.Column="5" HorizontalContentAlignment="Center" Content="," Width="{StaticResource SettingColonWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
+                <local:ControlSettingPos Grid.Row="1" Grid.Column="6" x:Name="ControlWastePosZ"/>
+            </Grid>
+        </StackPanel>
+    </Grid>
+
+</UserControl>

@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="AutoLiquid_Bluescape_Fermentation_Plus.UserControls.ControlDataGridProcedureChain"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:userControls="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+             mc:Ignorable="d">
+    <Grid>
+        <userControls:DataGridWithRowNum x:Name="DataGridProcedures" ShowRowNumbers="True" ItemsSource="{Binding Procedures, NotifyOnTargetUpdated=True}" Style="{StaticResource DataGridStyle}" AutoGenerateColumns="false"  HorizontalAlignment="Left" FrozenColumnCount="0" HeadersVisibility="All" CanUserAddRows="false" Margin="0,1,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanUserResizeRows="False" EnableRowVirtualization="False" IsReadOnly="True">
+            <!--行号-->
+            <userControls:DataGridWithRowNum.RowHeaderTemplate>
+                <DataTemplate>
+                    <Label HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=Header}" FontSize="{StaticResource DefaultFontSizeSmall}" Width="{StaticResource DataGridRowHeaderNumWidth}"/>
+                </DataTemplate>
+            </userControls:DataGridWithRowNum.RowHeaderTemplate>
+            <DataGrid.Columns>
+                <!--程序链-->
+                <DataGridTextColumn Header="{StaticResource ProcedureChain}" Width="*" Binding="{Binding Summary, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" CanUserReorder="False"  CanUserResize="False" CanUserSort="False">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="HorizontalAlignment" Value="Left" />
+                            <Setter Property="FontWeight" Value="ExtraBold"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </userControls:DataGridWithRowNum>
+    </Grid>
+</UserControl>

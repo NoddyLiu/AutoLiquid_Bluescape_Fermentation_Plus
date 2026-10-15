@@ -1,0 +1,33 @@
+﻿<metro:MetroWindow  x:Class="AutoLiquid_Bluescape_Fermentation_Plus.Window.WindowUV"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:userControls="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+                    Title="{StaticResource UVLamp}" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" GlowBrush="{DynamicResource MahApps.Brushes.Accent}">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Grid.Row="0" Grid.Column="0" Source="/AutoLiquid_Library;component/Images/uv.png" Width="350" Height="500"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" Margin="20,0,20,0" HorizontalAlignment="Center">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="{StaticResource TimeRemaining}" FontSize="{StaticResource DefaultFontSize}" Foreground="OrangeRed"/>
+                <TextBlock x:Name="TextBlockTimeRemain" Text="00:00:00" FontSize="{StaticResource DefaultFontSize}" HorizontalAlignment="Right"/>
+            </DockPanel>
+            <metro:MetroProgressBar  Name="ProgressBar" Width="700" Height="30" Maximum="100" Minimum="0" Value="0" Margin="0,10,0,0"  Background="LightGray" Foreground="{StaticResource MahApps.Brushes.Accent}"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="{StaticResource TimeSet}" FontSize="{StaticResource DefaultFontSize}" VerticalAlignment="Center"/>
+                <TextBlock Text="：" FontSize="{StaticResource DefaultFontSize}" VerticalAlignment="Center"/>
+                <TextBox x:Name="TextBoxUVTimeSet" Width="100" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Text="" FontSize="{StaticResource DefaultFontSize}"/>
+                <TextBlock Text="{StaticResource Second}" FontSize="{StaticResource DefaultFontSize}" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                <Button Name="BtnConfirm" Content="{StaticResource Confirm}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="70" Height="40" FontSize="20" Margin="10"/>
+                <Button Name="BtnCancel" Content="{StaticResource Cancel}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="70" Height="40" FontSize="20" Margin="10"/>
+            </StackPanel>
+        </StackPanel>
+
+     
+    </Grid>
+</metro:MetroWindow>

@@ -1,0 +1,154 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib"
+                    xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro">
+
+    <!--移液头2不可用Tag-->
+    <s:Boolean x:Key="Head2DisableTag">True</s:Boolean>
+
+    <!--主窗体大小-->
+    <s:Double x:Key="MainWinWidth">1440</s:Double>
+    <s:Double x:Key="MainWinHeight">900</s:Double>
+
+        <!--默认字体大小-->
+    <s:Double x:Key="DefaultFontSize">25</s:Double>
+    <s:Double x:Key="DefaultFontSizeSmall">16</s:Double>
+
+    <!--颜色-->
+    <SolidColorBrush x:Key="TemplateBorderColor"  Color="Gray"/>
+    <SolidColorBrush x:Key="TemplateTipBackground"  Color="LightSkyBlue"/>
+    <SolidColorBrush x:Key="TemplateSourceBackground"  Color="LightSkyBlue"/>
+    <SolidColorBrush x:Key="TemplateTargetBackground"  Color="ForestGreen"/>
+
+    <!--表格字体居中-->
+    <Style x:Key="CenterCellStyle" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--设置界面-->
+    <s:Double x:Key="SettingTitleFontSize">18</s:Double>
+    <s:Double x:Key="SettingTitleWidth">123</s:Double>
+    <s:Double x:Key="SettingColonWidth">15</s:Double>
+    <!-- <s:Double x:Key="SettingValueWidth">105</s:Double> -->
+    <s:Double x:Key="SettingValueWidth">65</s:Double>
+    <s:Double x:Key="SettingHoleValueWidth">60</s:Double>
+    <s:Double x:Key="SettingBtnFontSize">15</s:Double>
+    <s:Double x:Key="SettingNormalFontSize">15</s:Double>
+    <s:Double x:Key="SettingUnitWidth">50</s:Double>
+    <s:Double x:Key="SettingGroupBoxTitleFontSize">15</s:Double>
+    <s:Double x:Key="SettingSpeedWidth">195</s:Double>
+    <s:Double x:Key="BtnTrimmingWidth">23</s:Double>
+    <s:Double x:Key="DataGridRowHeight">40</s:Double>
+    <s:Double x:Key="DataGridRowHeaderNumWidth">30</s:Double>
+
+    <!--GroupBox外边框-->
+    <Thickness x:Key="GroupBoxBorderThickness">3</Thickness>
+
+    <!--Tab样式-->
+    <Style x:Key="MetroTabStyle" TargetType="{x:Type controls:MetroTabItem}">
+        <Setter Property="controls:HeaderedControlHelper.HeaderFontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="MetroTabStyleWithClose" TargetType="{x:Type controls:MetroTabItem}">
+        <Setter Property="controls:HeaderedControlHelper.HeaderFontSize" Value="20"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="CloseButtonEnabled" Value="True"/>
+    </Style>
+
+    <!--DataGrid样式-->
+    <Style x:Key="DataGridHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+    <Style x:Key="DataGridCellStyle" TargetType="{x:Type DataGridCell}">
+        <Style.Resources>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+        </Style.Resources>
+        <Setter Property="Height" Value="{StaticResource DataGridRowHeight}"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+    </Style>
+    <Style  x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+        <Setter Property="ColumnHeaderStyle" Value="{StaticResource DataGridHeaderStyle}" />
+        <Setter Property="CellStyle" Value="{StaticResource DataGridCellStyle}"/>
+    </Style>
+    <!--DataGrid行号样式-->
+    <Style x:Key="DataGridRowHeaderStyle" TargetType="{x:Type DataGridRowHeader}">
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Width" Value="40"/>
+    </Style>
+
+    <!--ComboBox样式-->
+    <Style x:Key="ComboBoxStyle" TargetType="{x:Type ComboBox}">
+        <Setter Property="Height" Value="{StaticResource DataGridRowHeight}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--TextBox样式-->
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="{StaticResource DataGridRowHeight}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Label样式-->
+    <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
+        <Setter Property="Height" Value="{StaticResource DataGridRowHeight}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--CheckBox样式-->
+    <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+        <Setter Property="Height" Value="{StaticResource DataGridRowHeight}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="{StaticResource DefaultFontSizeSmall}"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="Transparent"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

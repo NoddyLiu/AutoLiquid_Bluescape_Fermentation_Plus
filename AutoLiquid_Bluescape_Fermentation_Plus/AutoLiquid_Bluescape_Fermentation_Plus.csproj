@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F528199-B01A-4C86-A041-2144D82D4726}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AutoLiquid_Bluescape_Fermentation_Plus</RootNamespace>
+    <AssemblyName>AutoLiquid_Bluescape_Fermentation_Plus</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ControlzEx, Version=5.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.5.0.1\lib\net452\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=2.0.0.0, Culture=neutral, PublicKeyToken=51482d6f650b2b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.2.4.6\lib\net46\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.31\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=5.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.5.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License, Version=1.4.0.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.XLS.11.12.2\lib\net40\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=7.12.1.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.XLS.11.12.2\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.XLS, Version=11.12.2.0, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.XLS.11.12.2\lib\net40\Spire.XLS.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="EntityCommon\Error.cs" />
+    <Compile Include="EntityCommon\HoleIndex.cs" />
+    <Compile Include="EntityCommon\RowCol.cs" />
+    <Compile Include="EntityCommon\JetOffset.cs" />
+    <Compile Include="EntityJson\Debug.cs" />
+    <Compile Include="EntityJson\Head.cs" />
+    <Compile Include="EntityJson\ProcedureAll.cs" />
+    <Compile Include="EntityJson\ProcedureStep.cs" />
+    <Compile Include="Mvvm\ModelColumnStep.cs" />
+    <Compile Include="Mvvm\ModelProcedure.cs" />
+    <Compile Include="Mvvm\ModelProcedureChain.cs" />
+    <Compile Include="Pump\ITransport.cs" />
+    <Compile Include="Pump\OemCodec.cs" />
+    <Compile Include="Pump\PumpManager.cs" />
+    <Compile Include="Pump\Sp1Cmd.cs" />
+    <Compile Include="Pump\Sp1Oem.cs" />
+    <Compile Include="Pump\Sp1OemClient.cs" />
+    <Compile Include="Pump\Sp1StatusParser.cs" />
+    <Compile Include="Pump\TtySTransport.cs" />
+    <Compile Include="Pump\WorkflowRunner.cs" />
+    <Compile Include="UserControls\ControlDataGridProcedureChain.xaml.cs">
+      <DependentUpon>ControlDataGridProcedureChain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlDataGridProcedure.xaml.cs">
+      <DependentUpon>ControlDataGridProcedure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlProgressBar.xaml.cs">
+      <DependentUpon>ControlProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingPump.xaml.cs">
+      <DependentUpon>ControlSettingPump.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingSteelNeedle.xaml.cs">
+      <DependentUpon>ControlSettingSteelNeedle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingWaste.xaml.cs">
+      <DependentUpon>ControlSettingWaste.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingCover.xaml.cs">
+      <DependentUpon>ControlSettingCover.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingConsumable.xaml.cs">
+      <DependentUpon>ControlSettingConsumable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingGroup.xaml.cs">
+      <DependentUpon>ControlSettingGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingHeadAttribute.xaml.cs">
+      <DependentUpon>ControlSettingHeadAttribute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingPosDebug.xaml.cs">
+      <DependentUpon>ControlSettingPosDebug.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingPos.xaml.cs">
+      <DependentUpon>ControlSettingPos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingPlatePutting.xaml.cs">
+      <DependentUpon>ControlSettingPlatePutting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingCleaning.xaml.cs">
+      <DependentUpon>ControlSettingCleaning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingShake.xaml.cs">
+      <DependentUpon>ControlSettingShake.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingTemp.xaml.cs">
+      <DependentUpon>ControlSettingTemp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingSpeed.xaml.cs">
+      <DependentUpon>ControlSettingSpeed.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlSettingVolume.xaml.cs">
+      <DependentUpon>ControlSettingVolume.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlTemplate.xaml.cs">
+      <DependentUpon>ControlTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlTemplateCommon.xaml.cs">
+      <DependentUpon>ControlTemplateCommon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlTemplateSetting.xaml.cs">
+      <DependentUpon>ControlTemplateSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\DataGridNumericColumn.cs" />
+    <Compile Include="UserControls\DataGridWithRowNum.cs" />
+    <Compile Include="UserControls\TextBoxInteger.cs" />
+    <Compile Include="Utils\CmdHelperPump.cs" />
+    <Compile Include="Utils\CmdHelper.cs" />
+    <Compile Include="Utils\CmdHelperTemp.cs" />
+    <Compile Include="Utils\ConstantsUtils.cs" />
+    <Compile Include="Utils\ConsumableHelper.cs" />
+    <Compile Include="Utils\PumpHelper.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\LogHelper.cs" />
+    <Compile Include="Utils\DataHelper.cs" />
+    <Compile Include="Utils\ParamsHelper.cs" />
+    <Compile Include="Utils\PermissionHelper.cs" />
+    <Compile Include="Utils\ViewUtils.cs" />
+    <Compile Include="Utils\WindowUtils.cs" />
+    <Compile Include="Window\WindowAbout.xaml.cs">
+      <DependentUpon>WindowAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowHoleSelect.xaml.cs">
+      <DependentUpon>WindowHoleSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowProcedureChainNew.xaml.cs">
+      <DependentUpon>WindowProcedureChainNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowUV.xaml.cs">
+      <DependentUpon>WindowUV.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowProcedureNew.xaml.cs">
+      <DependentUpon>WindowProcedureNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowChangeGroupTitle.xaml.cs">
+      <DependentUpon>WindowChangeGroupTitle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowCommonSettingHead.xaml.cs">
+      <DependentUpon>WindowCommonSettingHead.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowLogin.xaml.cs">
+      <DependentUpon>WindowLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowProcedure.xaml.cs">
+      <DependentUpon>WindowProcedure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowMessageBox.xaml.cs">
+      <DependentUpon>WindowMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\WindowPwdModify.xaml.cs">
+      <DependentUpon>WindowPwdModify.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Assets\StringResource_zh.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Assets\SurfaceResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EntityCommon\HeadStatus.cs" />
+    <Compile Include="EntityCommon\Hole.cs" />
+    <Compile Include="EntityCommon\One2More.cs" />
+    <Compile Include="EntityCommon\Seq.cs" />
+    <Compile Include="EntityCommon\Template.cs" />
+    <Compile Include="EntityJson\Common.cs" />
+    <Compile Include="EntityJson\Consumable.cs" />
+    <Compile Include="EntityJson\IO.cs" />
+    <Compile Include="EntityJson\Layout.cs" />
+    <Compile Include="EntityJson\Permission.cs" />
+    <Compile Include="EntityJson\Position.cs" />
+    <Compile Include="EntityJson\Range.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="UserControls\ControlDataGridProcedureChain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlDataGridProcedure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlProgressBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingPump.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingSteelNeedle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingWaste.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingCover.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingConsumable.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingGroup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingHeadAttribute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingPosDebug.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingPos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingPlatePutting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingCleaning.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingShake.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingTemp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingSpeed.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlSettingVolume.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlTemplateCommon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ControlTemplateSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowAbout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowHoleSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowProcedureChainNew.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowUV.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowProcedureNew.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowChangeGroupTitle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowCommonSettingHead.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowProcedure.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowMessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\WindowPwdModify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoLiquid_Library\AutoLiquid_Library.csproj">
+      <Project>{253c36a1-497f-4b93-95d8-920b056cf3a3}</Project>
+      <Name>AutoLiquid_Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DAE\DAERun.csproj">
+      <Project>{2aa8f04f-ac69-4f85-9417-caad1fb09f6e}</Project>
+      <Name>DAERun</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AutoLiquid_Update_Log.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

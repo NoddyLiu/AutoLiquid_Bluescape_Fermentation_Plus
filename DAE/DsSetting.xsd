@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DsSetting" targetNamespace="http://tempuri.org/DsSetting.xsd" xmlns:mstns="http://tempuri.org/DsSetting.xsd" xmlns="http://tempuri.org/DsSetting.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DsSetting" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DsSetting" msprop:Generator_UserDSName="DsSetting">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TaSetting" msprop:Generator_TableClassName="TaSettingDataTable" msprop:Generator_TableVarName="tableTaSetting" msprop:Generator_RowChangedName="TaSettingRowChanged" msprop:Generator_TablePropName="TaSetting" msprop:Generator_RowDeletingName="TaSettingRowDeleting" msprop:Generator_RowChangingName="TaSettingRowChanging" msprop:Generator_RowEvHandlerName="TaSettingRowChangeEventHandler" msprop:Generator_RowDeletedName="TaSettingRowDeleted" msprop:Generator_RowClassName="TaSettingRow" msprop:Generator_UserTableName="TaSetting" msprop:Generator_RowEvArgName="TaSettingRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="localip" msprop:Generator_ColumnVarNameInTable="columnlocalip" msprop:Generator_ColumnPropNameInRow="localip" msprop:Generator_ColumnPropNameInTable="localipColumn" msprop:Generator_UserColumnName="localip" type="xs:string" minOccurs="0" />
+              <xs:element name="netcanip" msprop:Generator_ColumnVarNameInTable="columnnetcanip" msprop:Generator_ColumnPropNameInRow="netcanip" msprop:Generator_ColumnPropNameInTable="netcanipColumn" msprop:Generator_UserColumnName="netcanip" type="xs:string" minOccurs="0" />
+              <xs:element name="port" msprop:Generator_ColumnVarNameInTable="columnport" msprop:Generator_ColumnPropNameInRow="port" msprop:Generator_ColumnPropNameInTable="portColumn" msprop:Generator_UserColumnName="port" type="xs:string" minOccurs="0" />
+              <xs:element name="waitMs" msprop:Generator_ColumnVarNameInTable="columnwaitMs" msprop:Generator_ColumnPropNameInRow="waitMs" msprop:Generator_ColumnPropNameInTable="waitMsColumn" msprop:Generator_UserColumnName="waitMs" type="xs:string" minOccurs="0" />
+              <xs:element name="sendData" msprop:Generator_ColumnVarNameInTable="columnsendData" msprop:Generator_ColumnPropNameInRow="sendData" msprop:Generator_ColumnPropNameInTable="sendDataColumn" msprop:Generator_UserColumnName="sendData" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

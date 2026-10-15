@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="AutoLiquid_Bluescape_Fermentation_Plus.UserControls.ControlProgressBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AutoLiquid_Bluescape_Fermentation_Plus.UserControls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d"
+             d:DesignWidth="800">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="{StaticResource TimeUsed}" FontSize="{StaticResource DefaultFontSizeSmall}"/>
+                <TextBlock x:Name="TextBlockTimeUsed" Text="00:10:51" FontWeight="ExtraBold" FontSize="{StaticResource DefaultFontSizeSmall}"/>
+            </StackPanel>
+            <mah:MetroProgressBar Grid.Column="1" Name="ProgressBar"  Maximum="100" Minimum="0" Value="0" Margin="5" Background="LightGray" Foreground="{StaticResource MahApps.Brushes.Accent}" Visibility="Collapsed"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+                <TextBlock Text="{StaticResource TimeRemain}"/>
+                <TextBlock x:Name="TextBlockTimeRemain" Text="00:02:20"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
