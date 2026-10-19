@@ -92,7 +92,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Mvvm
             get
             {
                 _sourceTemplateList.Clear();
-                _sourceTemplateList.AddRange(new List<int> { 1, 2, 3, 4 });
+                _sourceTemplateList.AddRange(new List<int> { 1, 2 });
                 return _sourceTemplateList;
             }
         }
@@ -174,7 +174,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Mvvm
             get
             {
                 _targetTemplateList.Clear();
-                _targetTemplateList.AddRange(new List<int> { 1, 2, 3, 4 });
+                _targetTemplateList.AddRange(new List<int> { 1, 2 });
                 return _targetTemplateList;
             }
         }

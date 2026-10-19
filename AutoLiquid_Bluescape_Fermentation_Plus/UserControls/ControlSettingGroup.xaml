@@ -245,6 +245,8 @@
                             <TextBox x:Name="TextBoxColStep" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}" />
                             <Label Width="{StaticResource SettingUnitWidth}" Content="mm" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                         </StackPanel>
+
+                        <CheckBox x:Name="CheckBoxStaggered" Content="{StaticResource Staggered}" FontSize="{StaticResource MahApps.Font.Size.Default}" VerticalAlignment="Center" Margin="30,0,0,0" ToolTip="{StaticResource Prompt_Staggered}"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

@@ -1357,6 +1357,14 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                 ya = a1Pos == EA1Pos.LeftTop
                     ? ya - holeStep.Y * yIndex
                     : ya + holeStep.Y * yIndex;
+
+            // === 新增：错位布局，偶数行（B/D/F/H）X方向向左偏移半个孔距 ===
+            if (consumableType.Staggered && yIndex % 2 == 1)
+            {
+                xa -= holeStep.X / 2;
+            }
+            // === 新增结束 ===
+
             // 赋值位置信息
             pos.X = xa;
             pos.Y = ya;

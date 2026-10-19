@@ -58,63 +58,195 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="borderColor"></param>
+        //private void InitHoles(Panel parent, Brush borderColor)
+        //{
+        //    LabelTItle.Content = mTemplate.Title;
+        //    LabelSubTItle.Content = mTemplate.SubTitle;
+
+        //    // 判断板类型
+        //    var colCount = mTemplate.ColCount;
+        //    var rowCount = mTemplate.RowCount;
+        //    var labelFontSize = 0;
+
+        //    // A1位置
+        //    var a1Pos = mTemplate.A1Pos;
+
+        //    // 每个孔大小（取小值作为孔直径）
+        //    var holeSizeHeight = parent.ActualHeight / (rowCount + 1);
+        //    var holeSizeWidth = parent.ActualWidth / (colCount + 1);
+        //    var holeSize = holeSizeHeight > holeSizeWidth ? holeSizeWidth : holeSizeHeight;
+        //    labelFontSize = (int)Math.Round(holeSize, MidpointRounding.AwayFromZero) / 3;
+
+        //    for (var row = 0; row < rowCount + 1; row++)
+        //    {
+        //        var eachRowStackPanel = ViewUtils.CreateRowStackPanel();
+
+        //        // === 新增：错位布局，偶数行（B/D/F/H）向左偏移半个孔距 ===
+        //        if (mTemplate.Staggered && row > 0 && row % 2 == 0)
+        //        {
+        //            eachRowStackPanel.RenderTransform = new TranslateTransform(-holeSize / 2, 0);
+        //        }
+        //        // === 新增结束 ===
+
+        //        for (var col = 0; col < colCount + 1; col++)
+        //        {
+        //            var grid = ViewUtils.CreateGrid(holeSize);
+
+        //            // A1位置：左上（孔index顺序是同一列由上到下，再由左到右）
+        //            if (a1Pos == EA1Pos.LeftTop)
+        //            {
+        //                // 第一列
+        //                if (col == 0 && row > 0)
+        //                {
+        //                    // 字母
+        //                    var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[row - 1], labelFontSize);
+        //                    grid.Children.Add(letter);
+        //                }
+        //                // 第一行
+        //                else if (row == 0 && col > 0)
+        //                {
+        //                    // 数字
+        //                    var num = ViewUtils.CreateLabel(holeSize, ViewUtils.PosNumList[col - 1], labelFontSize - 1);
+        //                    grid.Children.Add(num);
+        //                }
+        //                else if (row > 0 && col > 0)
+        //                {
+        //                    var holeIndex = (col - 1) * rowCount + row - 1;
+        //                    var hole = mTemplate.Holes[holeIndex];
+        //                    // 孔
+        //                    hole.Circle = ViewUtils.CreateEllipse(holeSize, borderColor);
+
+        //                    if (hole.Capacity > 0.0m)
+        //                    {
+        //                        // 背景
+        //                        hole.Circle.Fill = Brushes.Blue;
+        //                        // 文字
+        //                        hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(),
+        //                            labelFontSize);
+        //                        hole.Word.Foreground = Brushes.White;
+        //                    }
+
+        //                    grid.Children.Add(hole.Circle);
+        //                    if (null != hole.Word)
+        //                        grid.Children.Add(hole.Word);
+        //                }
+        //            }
+        //            // A1位置：左下（孔index顺序是同一行由左到右，再由下到上）
+        //            else
+        //            {
+        //                // 第一列
+        //                if (col == 0 && row < rowCount)
+        //                {
+        //                    // 数字
+        //                    var num = ViewUtils.CreateLabel(holeSize, ViewUtils.PosNumList[rowCount - row - 1], labelFontSize);
+        //                    grid.Children.Add(num);
+        //                }
+        //                // 最尾行
+        //                else if (row == rowCount && col > 0)
+        //                {
+        //                    // 字母
+        //                    var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[col - 1], labelFontSize - 1);
+        //                    grid.Children.Add(letter);
+        //                }
+        //                else if (row < rowCount && col > 0)
+        //                {
+        //                    var holeIndex = (rowCount - row - 1) * colCount + (col - 1);
+        //                    var hole = mTemplate.Holes[holeIndex];
+        //                    // 孔
+        //                    hole.Circle = ViewUtils.CreateEllipse(holeSize, borderColor);
+
+        //                    if (hole.Capacity > 0.0m)
+        //                    {
+        //                        // 背景
+        //                        hole.Circle.Fill = Brushes.Blue;
+        //                        // 文字
+        //                        hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(),
+        //                            labelFontSize);
+        //                        hole.Word.Foreground = Brushes.White;
+        //                    }
+
+        //                    grid.Children.Add(hole.Circle);
+        //                    if (null != hole.Word)
+        //                        grid.Children.Add(hole.Word);
+        //                }
+        //            }
+
+        //            eachRowStackPanel.Children.Add(grid);
+        //        }
+        //        parent.Children.Add(eachRowStackPanel);
+        //    }
+
+        //    parent.HorizontalAlignment = HorizontalAlignment.Center;
+        //    parent.VerticalAlignment = VerticalAlignment.Center;
+        //}
         private void InitHoles(Panel parent, Brush borderColor)
         {
             LabelTItle.Content = mTemplate.Title;
             LabelSubTItle.Content = mTemplate.SubTitle;
 
-            // 判断板类型
             var colCount = mTemplate.ColCount;
             var rowCount = mTemplate.RowCount;
             var labelFontSize = 0;
-
-            // A1位置
             var a1Pos = mTemplate.A1Pos;
 
-            // 每个孔大小（取小值作为孔直径）
+            // 错位布局：左列多出一个字母列，所以横向空间需要乘 1.3 倍（避免孔位被压扁）
+            var colFactor = (mTemplate.Staggered && a1Pos == EA1Pos.LeftTop) ? 1.3 : 1.0;
             var holeSizeHeight = parent.ActualHeight / (rowCount + 1);
-            var holeSizeWidth = parent.ActualWidth / (colCount + 1);
+            var holeSizeWidth = parent.ActualWidth / (colCount * colFactor + 1);
             var holeSize = holeSizeHeight > holeSizeWidth ? holeSizeWidth : holeSizeHeight;
             labelFontSize = (int)Math.Round(holeSize, MidpointRounding.AwayFromZero) / 3;
 
             for (var row = 0; row < rowCount + 1; row++)
             {
-                var eachRowStackPanel = ViewUtils.CreateRowStackPanel();
-                for (var col = 0; col < colCount + 1; col++)
+                if (mTemplate.Staggered && a1Pos == EA1Pos.LeftTop)
                 {
-                    var grid = ViewUtils.CreateGrid(holeSize);
+                    var rowGrid = new Grid();
+                    rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(holeSize) });
+                    rowGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Auto) });
 
-                    // A1位置：左上（孔index顺序是同一列由上到下，再由左到右）
-                    if (a1Pos == EA1Pos.LeftTop)
+                    var leftGrid = ViewUtils.CreateGrid(holeSize);
+                    if (row > 0)
                     {
-                        // 第一列
-                        if (col == 0 && row > 0)
+                        var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[row - 1], labelFontSize);
+                        leftGrid.Children.Add(letter);
+                    }
+                    Grid.SetColumn(leftGrid, 0);
+                    rowGrid.Children.Add(leftGrid);
+
+                    var rightPanel = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal,
+                        HorizontalAlignment = HorizontalAlignment.Left,
+                        Margin = new Thickness(holeSize / 2, 0, 0, 0)
+                    };
+
+                    if (row > 0 && row % 2 == 1)
+                    {
+                        // === 错位布局：奇数行（A/C/E/G，行索引 1/3/5/7）整体右移半个孔间距 = 0.75*holeSize ===
+                        rightPanel.RenderTransform = new TranslateTransform(holeSize * 0.75, 0);
+                    }
+
+                    for (var col = 1; col < colCount + 1; col++)
+                    {
+                        var grid = ViewUtils.CreateGrid(holeSize);
+                        // === 调大 X 方向间距 ===
+                        grid.Margin = new Thickness(0, 0, holeSize * 0.5, 0);
+
+                        if (row == 0)
                         {
-                            // 字母
-                            var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[row - 1], labelFontSize);
-                            grid.Children.Add(letter);
-                        }
-                        // 第一行
-                        else if (row == 0 && col > 0)
-                        {
-                            // 数字
                             var num = ViewUtils.CreateLabel(holeSize, ViewUtils.PosNumList[col - 1], labelFontSize - 1);
                             grid.Children.Add(num);
                         }
-                        else if (row > 0 && col > 0)
+                        else
                         {
                             var holeIndex = (col - 1) * rowCount + row - 1;
                             var hole = mTemplate.Holes[holeIndex];
-                            // 孔
                             hole.Circle = ViewUtils.CreateEllipse(holeSize, borderColor);
 
                             if (hole.Capacity > 0.0m)
                             {
-                                // 背景
                                 hole.Circle.Fill = Brushes.Blue;
-                                // 文字
-                                hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(),
-                                    labelFontSize);
+                                hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(), labelFontSize);
                                 hole.Word.Foreground = Brushes.White;
                             }
 
@@ -122,50 +254,87 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
                             if (null != hole.Word)
                                 grid.Children.Add(hole.Word);
                         }
+
+                        rightPanel.Children.Add(grid);
                     }
-                    // A1位置：左下（孔index顺序是同一行由左到右，再由下到上）
-                    else
-                    {
-                        // 第一列
-                        if (col == 0 && row < rowCount)
-                        {
-                            // 数字
-                            var num = ViewUtils.CreateLabel(holeSize, ViewUtils.PosNumList[rowCount - row - 1], labelFontSize);
-                            grid.Children.Add(num);
-                        }
-                        // 最尾行
-                        else if (row == rowCount && col > 0)
-                        {
-                            // 字母
-                            var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[col - 1], labelFontSize - 1);
-                            grid.Children.Add(letter);
-                        }
-                        else if (row < rowCount && col > 0)
-                        {
-                            var holeIndex = (rowCount - row - 1) * colCount + (col - 1);
-                            var hole = mTemplate.Holes[holeIndex];
-                            // 孔
-                            hole.Circle = ViewUtils.CreateEllipse(holeSize, borderColor);
+                    Grid.SetColumn(rightPanel, 1);
+                    rowGrid.Children.Add(rightPanel);
 
-                            if (hole.Capacity > 0.0m)
-                            {
-                                // 背景
-                                hole.Circle.Fill = Brushes.Blue;
-                                // 文字
-                                hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(),
-                                    labelFontSize);
-                                hole.Word.Foreground = Brushes.White;
-                            }
-
-                            grid.Children.Add(hole.Circle);
-                            if (null != hole.Word)
-                                grid.Children.Add(hole.Word);
-                        }
-                    }
-
-                    eachRowStackPanel.Children.Add(grid);
+                    parent.Children.Add(rowGrid);
                 }
-                parent.Children.Add(eachRowStackPanel);
+                else
+                {
+                    // === 非错位 / LeftBottom：使用原始单行 StackPanel 逻辑（保持不变）===
+                    var eachRowStackPanel = ViewUtils.CreateRowStackPanel();
+                    for (var col = 0; col < colCount + 1; col++)
+                    {
+                        var grid = ViewUtils.CreateGrid(holeSize);
+
+                        if (a1Pos == EA1Pos.LeftTop)
+                        {
+                            if (col == 0 && row > 0)
+                            {
+                                var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[row - 1], labelFontSize);
+                                grid.Children.Add(letter);
+                            }
+                            else if (row == 0 && col > 0)
+                            {
+                                var num = ViewUtils.CreateLabel(holeSize, ViewUtils.PosNumList[col - 1], labelFontSize - 1);
+                                grid.Children.Add(num);
+                            }
+                            else if (row > 0 && col > 0)
+                            {
+                                var holeIndex = (col - 1) * rowCount + row - 1;
+                                var hole = mTemplate.Holes[holeIndex];
+                                hole.Circle = ViewUtils.CreateEllipse(holeSize, borderColor);
+
+                                if (hole.Capacity > 0.0m)
+                                {
+                                    hole.Circle.Fill = Brushes.Blue;
+                                    hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(), labelFontSize);
+                                    hole.Word.Foreground = Brushes.White;
+                                }
+
+                                grid.Children.Add(hole.Circle);
+                                if (null != hole.Word)
+                                    grid.Children.Add(hole.Word);
+                            }
+                        }
+                        else  // EA1Pos.LeftBottom
+                        {
+                            if (col == 0 && row < rowCount)
+                            {
+                                var num = ViewUtils.CreateLabel(holeSize, ViewUtils.PosNumList[rowCount - row - 1], labelFontSize);
+                                grid.Children.Add(num);
+                            }
+                            else if (row == rowCount && col > 0)
+                            {
+                                var letter = ViewUtils.CreateLabel(holeSize, ViewUtils.PosLetterList[col - 1], labelFontSize - 1);
+                                grid.Children.Add(letter);
+                            }
+                            else if (row < rowCount && col > 0)
+                            {
+                                var holeIndex = (rowCount - row - 1) * colCount + (col - 1);
+                                var hole = mTemplate.Holes[holeIndex];
+                                hole.Circle = ViewUtils.CreateEllipse(holeSize, borderColor);
+
+                                if (hole.Capacity > 0.0m)
+                                {
+                                    hole.Circle.Fill = Brushes.Blue;
+                                    hole.Word = ViewUtils.CreateLabel(holeSize, hole.Capacity.ToString(), labelFontSize);
+                                    hole.Word.Foreground = Brushes.White;
+                                }
+
+                                grid.Children.Add(hole.Circle);
+                                if (null != hole.Word)
+                                    grid.Children.Add(hole.Word);
+                            }
+                        }
+
+                        eachRowStackPanel.Children.Add(grid);
+                    }
+                    parent.Children.Add(eachRowStackPanel);
+                }
             }
 
             parent.HorizontalAlignment = HorizontalAlignment.Center;

@@ -321,6 +321,7 @@
     <s:String x:Key="PumpSetting">注射泵设置</s:String>
     <s:String x:Key="PortName">串口号</s:String>
     <s:String x:Key="Pos0">零位</s:String>
+    <s:String x:Key="Staggered">孔错位</s:String>
 
     <!--提示-->
     <s:String x:Key="Prompt">提示</s:String>
@@ -416,4 +417,5 @@
     <s:String x:Key="Prompt_Port_Name_Tooltip">重选串口号后请重新打开软件！</s:String>
     <s:String x:Key="Prompt_Pump_Disconnect_Pls_Check_Again">注射泵未连接，请检查！</s:String>
     <s:String x:Key="Prompt_Speed_Level_Hint">范围0~40。数值越大，速度越慢</s:String>
+    <s:String x:Key="Prompt_Staggered">A1位置相对B1位置向右偏移半个孔距</s:String>
 </ResourceDictionary>

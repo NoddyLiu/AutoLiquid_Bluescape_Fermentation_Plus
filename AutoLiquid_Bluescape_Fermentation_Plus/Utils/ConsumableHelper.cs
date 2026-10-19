@@ -111,5 +111,67 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
             }
             return list;
         }
+
+        /// <summary>
+        /// 错位布局下，按视觉列计算实际孔数（与 WindowHoleSelect.SelectHoles 高亮逻辑保持一致）。
+        /// 同视觉列 → 返回视觉列孔数；跨视觉列 → 返回整段孔数；非错位 → 范围孔数。
+        /// </summary>
+        public static int GetHoleCount(HoleIndex fromHoleIndex, HoleIndex toHoleIndex, Consumable consumable)
+        {
+            int from = fromHoleIndex.OriIndex;
+            int to = toHoleIndex.OriIndex;
+            if (from < 0 || to < 0) return to - from + 1;
+            if (consumable == null || !consumable.Staggered) return to - from + 1;
+
+            int rowCount = consumable.RowCount;
+            int fromKey = (from / rowCount) * 2 + (from % rowCount) % 2;
+            int toKey = (to / rowCount) * 2 + (to % rowCount) % 2;
+
+            if (fromKey != toKey) return to - from + 1;
+
+            int count = 0;
+            for (int i = from; i <= to; i++)
+            {
+                int key = (i / rowCount) * 2 + (i % rowCount) % 2;
+                if (key == fromKey) count++;
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// 错位布局下，只返回同视觉列的孔位列表（移液序列生成用）
+        /// </summary>
+        public static List<HoleIndex> GetHoleIndexList(HoleIndex fromHoleIndex, HoleIndex toHoleIndex, Consumable consumable)
+        {
+            var list = new List<HoleIndex>();
+            int from = fromHoleIndex.OriIndex;
+            int to = toHoleIndex.OriIndex;
+            if (from < 0 || to < 0) return list;
+            if (consumable == null || !consumable.Staggered)
+            {
+                for (int i = from; i <= to; i++)
+                    list.Add(new HoleIndex { OriIndex = i });
+                return list;
+            }
+
+            int rowCount = consumable.RowCount;
+            int fromKey = (from / rowCount) * 2 + (from % rowCount) % 2;
+            int toKey = (to / rowCount) * 2 + (to % rowCount) % 2;
+
+            if (fromKey != toKey)
+            {
+                for (int i = from; i <= to; i++)
+                    list.Add(new HoleIndex { OriIndex = i });
+                return list;
+            }
+
+            for (int i = from; i <= to; i++)
+            {
+                int key = (i / rowCount) * 2 + (i % rowCount) % 2;
+                if (key == fromKey)
+                    list.Add(new HoleIndex { OriIndex = i });
+            }
+            return list;
+        }
     }
 }

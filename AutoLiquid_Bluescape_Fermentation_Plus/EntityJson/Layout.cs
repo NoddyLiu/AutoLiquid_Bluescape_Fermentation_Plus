@@ -15,9 +15,9 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.EntityJson
     public class Layout
     {
         // 行数
-        public int RowCount =5;
+        public int RowCount =1;
 
         // 列数
-        public int ColCount = 5;
+        public int ColCount = 2;
     }
 }

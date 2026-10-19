@@ -76,7 +76,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
         // 移液指令信息
         private List<Seq> seqList = new List<Seq>();
 
-        // 盘位（key：所在盘位index）（盘位1~4：发酵区；盘位5~8：留样区）
+        // 盘位（key：所在盘位index）（盘位1~2：发酵区；盘位3~4：留样区）
         public static Dictionary<int, ControlTemplateCommon> templateDict = new Dictionary<int, ControlTemplateCommon>();
 
         // 可用盘位
@@ -108,6 +108,10 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
 
             this.Loaded += OnLoaded;
             this.Closing += OnClosing;
+            this.Closed += (s, e) =>
+            {
+                Application.Current.Shutdown();
+            };
         }
 
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -544,13 +548,13 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
 
             /**
              * 添加可用盘位
-             * 发酵盘位：1、2、3、4
-             * 留样盘位：5、6、7、8
+             * 发酵盘位：1、2
+             * 留样盘位：3、4
              */
             templateCanUse.AddRange(new List<Grid>
             {
-                this.TemplateFermentation1, this.TemplateFermentation2, this.TemplateFermentation3, this.TemplateFermentation4,
-                this.TemplateSample1, this.TemplateSample2, this.TemplateSample3, this.TemplateSample4
+                this.TemplateFermentation1, this.TemplateFermentation2,
+                this.TemplateSample1, this.TemplateSample2
             });
 
             // 如果有紧急停止，就拦截指令
@@ -1216,8 +1220,11 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         // 移液
                         if (step.StepType == EStepType.LiquidTransfer)
                         {
-                            var sourceHoleCount = ConsumableHelper.GetHoleCount(step.SourceHoleIndexFrom, step.SourceHoleIndexTo);
-                            var targetHoleCount = ConsumableHelper.GetHoleCount(step.TargetHoleIndexFrom, step.TargetHoleIndexTo);
+                            // 错位布局下源/靶孔数与索引都要按视觉列过滤
+                            var sourceConsumable = ConsumableHelper.GetConsumableType(0, step.SourceConsumable);
+                            var targetConsumable = ConsumableHelper.GetConsumableType(0, step.TargetConsumable);
+                            var sourceHoleCount = ConsumableHelper.GetHoleCount(step.SourceHoleIndexFrom, step.SourceHoleIndexTo, sourceConsumable);
+                            var targetHoleCount = ConsumableHelper.GetHoleCount(step.TargetHoleIndexFrom, step.TargetHoleIndexTo, targetConsumable);
 
                             // 源盘 --> 靶盘 ：1 --> N （一吸多喷）
                             if (sourceHoleCount == 1 && targetHoleCount >= 1)
@@ -1234,11 +1241,11 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                                     SourceTemplateTypeIndex = step.SourceTemplateTypeIndex,
                                     SourceTemplateIndex = step.SourceTemplateIndex,
                                     SourceTemplateConsumableType = ConsumableHelper.GetConsumableType(0, step.SourceConsumable),
-                                    SourceHoleIndex = ConsumableHelper.GetHoleIndexList(step.SourceHoleIndexFrom, step.SourceHoleIndexTo)[0],
+                                    SourceHoleIndex = ConsumableHelper.GetHoleIndexList(step.SourceHoleIndexFrom, step.SourceHoleIndexTo, sourceConsumable)[0],
                                     TargetTemplateTypeIndex = step.TargetTemplateTypeIndex,
                                     TargetTemplateIndexList = new List<int> { step.TargetTemplateIndex },
                                     TargetTemplateConsumableType = ConsumableHelper.GetConsumableType(0, step.TargetConsumable),
-                                    TargetHoleIndexList = ConsumableHelper.GetHoleIndexList(step.TargetHoleIndexFrom, step.TargetHoleIndexTo),
+                                    TargetHoleIndexList = ConsumableHelper.GetHoleIndexList(step.TargetHoleIndexFrom, step.TargetHoleIndexTo, targetConsumable),
                                     VolumeEachList = new List<decimal> { step.VolumeEach },
                                     IsNeedCleaning = step.IsNeedCleaning,
                                     CleaningPosIndexArray = step.CleaningPosIndexArray,
@@ -1249,7 +1256,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                             // 源盘 --> 靶盘 ：N --> 1 （一吸一喷）
                             else if (sourceHoleCount > 1 && targetHoleCount == 1)
                             {
-                                var sourceHoleIndexList = ConsumableHelper.GetHoleIndexList(step.SourceHoleIndexFrom, step.SourceHoleIndexTo);
+                                var sourceHoleIndexList = ConsumableHelper.GetHoleIndexList(step.SourceHoleIndexFrom, step.SourceHoleIndexTo, sourceConsumable);
                                 for (var i = 0; i < sourceHoleIndexList.Count; i++)
                                 {
                                     var sourceHoleIndex = sourceHoleIndexList[i];
@@ -1269,7 +1276,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                                         TargetTemplateTypeIndex = step.TargetTemplateTypeIndex,
                                         TargetTemplateIndexList = new List<int> { step.TargetTemplateIndex },
                                         TargetTemplateConsumableType = ConsumableHelper.GetConsumableType(0, step.TargetConsumable),
-                                        TargetHoleIndexList = ConsumableHelper.GetHoleIndexList(step.TargetHoleIndexFrom, step.TargetHoleIndexTo),
+                                        TargetHoleIndexList = ConsumableHelper.GetHoleIndexList(step.TargetHoleIndexFrom, step.TargetHoleIndexTo, targetConsumable),
                                         VolumeEachList = new List<decimal> { step.VolumeEach },
                                         IsNeedCleaning = step.IsNeedCleaning,
                                         CleaningPosIndexArray = step.CleaningPosIndexArray,
@@ -1281,8 +1288,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                             // 源盘 --> 靶盘 ：N --> N （一吸一喷）
                             else if (sourceHoleCount > 1 && targetHoleCount > 1)
                             {
-                                var sourceHoleIndexList = ConsumableHelper.GetHoleIndexList(step.SourceHoleIndexFrom, step.SourceHoleIndexTo);
-                                var targetHoleIndexList = ConsumableHelper.GetHoleIndexList(step.TargetHoleIndexFrom, step.TargetHoleIndexTo);
+                                var sourceHoleIndexList = ConsumableHelper.GetHoleIndexList(step.SourceHoleIndexFrom, step.SourceHoleIndexTo, sourceConsumable);
+                                var targetHoleIndexList = ConsumableHelper.GetHoleIndexList(step.TargetHoleIndexFrom, step.TargetHoleIndexTo, targetConsumable);
                                 for (var i = 0; i < sourceHoleIndexList.Count; i++)
                                 {
                                     var seq = new Seq
@@ -1418,8 +1425,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 t.Children.Clear();
             }
 
-            // sourceTemplateDict.Clear();
-            // targetTemplateDict.Clear();
             templateDict.Clear();
 
             foreach (var seq in seqList)
@@ -1434,14 +1439,14 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
 
                 var sourceTemplateConsumableType = seq.SourceTemplateConsumableType;
                 var sourceTemplateTypeIndex = seq.SourceTemplateTypeIndex;
-                // 盘位1~4：发酵区；盘位5~8：留样区
-                var sourceTemplateIndex = seq.SourceTemplateIndex + sourceTemplateTypeIndex * 4;
+                // 盘位1~2：发酵区；盘位3~4：留样区
+                var sourceTemplateIndex = seq.SourceTemplateIndex + sourceTemplateTypeIndex * 2;
                 var sourceHoleIndex = seq.SourceHoleIndex;
                 var volumeEachList = seq.VolumeEachList;
                 var targetTemplateConsumableType = seq.TargetTemplateConsumableType;
-                // 盘位1~4：发酵区；盘位5~8：留样区
+                // 盘位1~2：发酵区；盘位3~4：留样区
                 var targetTemplateTypeIndex = seq.TargetTemplateTypeIndex;
-                var targetTemplateIndexList = seq.TargetTemplateIndexList.Select(p => p + targetTemplateTypeIndex * 4).ToList();
+                var targetTemplateIndexList = seq.TargetTemplateIndexList.Select(p => p + targetTemplateTypeIndex * 2).ToList();
                 var targetHoleIndexList = seq.TargetHoleIndexList;
                 var serialDilute = seq.SerialDilute;
                 var headUsedIndex = seq.HeadUsedIndex;
@@ -1461,18 +1466,18 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         else
                             sourceTotalVolume += volumeEachList[0];
                     }
-                    // if (!sourceTemplateDict.ContainsKey(sourceTemplateIndex))
                     if (!templateDict.ContainsKey(sourceTemplateIndex))
                     {
                         var template = new Template
                         {
-                            Title = sourceTemplateIndex < 4 ? (string)this.FindResource("TemplateFermentation") + (sourceTemplateIndex + 1) : (string)this.FindResource("TemplateSample") + (sourceTemplateIndex - 4 + 1),
+                            Title = sourceTemplateIndex < 2 ? (string)this.FindResource("TemplateFermentation") + (sourceTemplateIndex + 1) : (string)this.FindResource("TemplateSample") + (sourceTemplateIndex - 2 + 1),
                             SubTitle = sourceTemplateConsumableType.GroupName,
                             RowCount = sourceTemplateConsumableType.RowCount,
                             ColCount = sourceTemplateConsumableType.ColCount,
                             Step = sourceTemplateConsumableType.HoleStep,
                             A1Pos = ParamsHelper.CommonSettingList[0].A1Pos,
-                            Type = ETemplateType.Source
+                            Type = ETemplateType.Source,
+                            Staggered = sourceTemplateConsumableType.Staggered
                         };
                         var holeTotalCount = template.RowCount * template.ColCount; // 孔总数
                         for (var i = 0; i < holeTotalCount; i++)
@@ -1482,13 +1487,11 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
 
                         var controlTemplate = new ControlTemplateCommon(template);
                         controlTemplate.RefreshTemplateHolesStatus(headUsedIndex, sourceHoleIndex, sourceTotalVolume);
-                        // sourceTemplateDict.Add(sourceTemplateIndex, controlTemplate);
                         templateDict.Add(sourceTemplateIndex, controlTemplate);
                         templateCanUse[sourceTemplateIndex].Children.Add(controlTemplate);
                     }
                     else
                     {
-                        // if (!sourceTemplateDict.TryGetValue(sourceTemplateIndex, out var controlTemplate))
                         if (!templateDict.TryGetValue(sourceTemplateIndex, out var controlTemplate))
                             return; // 该源盘位Index不存在
                         controlTemplate.RefreshTemplateHolesStatus(headUsedIndex, sourceHoleIndex, sourceTotalVolume);
@@ -1500,18 +1503,18 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 for (var i = 0; i < targetTemplateIndexCount; i++)
                 {
                     var targetTemplateIndex = targetTemplateIndexList[i];
-                    // if (!targetTemplateDict.ContainsKey(targetTemplateIndex))
                     if (!templateDict.ContainsKey(targetTemplateIndex))
                     {
                         var template = new Template
                         {
-                            Title = targetTemplateIndex < 4 ? (string)this.FindResource("TemplateFermentation") + (targetTemplateIndex + 1) : (string)this.FindResource("TemplateSample") + (targetTemplateIndex - 4 + 1),
+                            Title = targetTemplateIndex < 2 ? (string)this.FindResource("TemplateFermentation") + (targetTemplateIndex + 1) : (string)this.FindResource("TemplateSample") + (targetTemplateIndex - 2 + 1),
                             SubTitle = targetTemplateConsumableType.GroupName,
                             RowCount = targetTemplateConsumableType.RowCount,
                             ColCount = targetTemplateConsumableType.ColCount,
                             Step = targetTemplateConsumableType.HoleStep,
                             A1Pos = ParamsHelper.CommonSettingList[0].A1Pos,
-                            Type = ETemplateType.Target
+                            Type = ETemplateType.Target,
+                            Staggered = targetTemplateConsumableType.Staggered
                         };
                         var holeTotalCount = template.RowCount * template.ColCount; // 孔总数
                         for (var j = 0; j < holeTotalCount; j++)
@@ -1538,14 +1541,11 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                             }
                         }
 
-                        // targetTemplateDict.Add(targetTemplateIndex, controlTemplate);
                         templateDict.Add(targetTemplateIndex, controlTemplate);
-                        // templateCanUse[targetTemplateIndex + 4].Children.Add(controlTemplate);
                         templateCanUse[targetTemplateIndex].Children.Add(controlTemplate);
                     }
                     else
                     {
-                        // if (!targetTemplateDict.TryGetValue(targetTemplateIndex, out var controlTemplate))
                         if (!templateDict.TryGetValue(targetTemplateIndex, out var controlTemplate))
                             return; // 该靶盘位Index不存在
 

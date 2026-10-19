@@ -164,6 +164,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             this.TextBoxColCount.Text = this.mConsumable.ColCount.ToString();
             this.TextBoxRowStep.Text = this.mConsumable.HoleStep.Y.ToString();
             this.TextBoxColStep.Text = this.mConsumable.HoleStep.X.ToString();
+            this.CheckBoxStaggered.IsChecked = this.mConsumable.Staggered;
 
             // 盘位设置
             this.CheckBoxAutoFill.IsChecked = this.mConsumable.HoleStartPosAutoFill;
@@ -213,6 +214,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             this.TextBoxColCount.TextChanged += TextBoxOnTextChanged;
             this.TextBoxRowStep.TextChanged += TextBoxOnTextChanged;
             this.TextBoxColStep.TextChanged += TextBoxOnTextChanged;
+            this.CheckBoxStaggered.Checked += CheckBoxOnChecked;
+            this.CheckBoxStaggered.Unchecked += CheckBoxOnUnChecked;
 
             // 盘位设置
             this.CheckBoxAutoFill.Checked += CheckBoxOnChecked;
@@ -337,6 +340,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
                 DataHelper.SaveBool(this.mHeadIndex, true, ref this.mConsumable.NormalHeightReset);
             else if (sender.Equals(this.CheckBoxWallJet))
                 DataHelper.SaveBool(this.mHeadIndex, true, ref this.mConsumable.WallJet);
+            else if (sender.Equals(this.CheckBoxStaggered))
+                DataHelper.SaveBool(this.mHeadIndex, true, ref this.mConsumable.Staggered);
             else if (sender.Equals(this.CheckBoxAutoFill))
             {
                 DataHelper.SaveBool(this.mHeadIndex, true, ref this.mConsumable.HoleStartPosAutoFill);
@@ -353,6 +358,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
                 DataHelper.SaveBool(this.mHeadIndex, false, ref this.mConsumable.NormalHeightReset);
             else if (sender.Equals(this.CheckBoxWallJet))
                 DataHelper.SaveBool(this.mHeadIndex, false, ref this.mConsumable.WallJet);
+            else if (sender.Equals(this.CheckBoxStaggered))
+                DataHelper.SaveBool(this.mHeadIndex, false, ref this.mConsumable.Staggered);
             else if (sender.Equals(this.CheckBoxAutoFill))
                 DataHelper.SaveBool(this.mHeadIndex, false, ref this.mConsumable.HoleStartPosAutoFill);
         }

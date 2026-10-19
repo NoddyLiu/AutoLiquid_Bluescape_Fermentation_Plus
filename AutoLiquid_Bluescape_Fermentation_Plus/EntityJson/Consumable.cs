@@ -22,6 +22,11 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.EntityJson
         public EConsumableType ConsumableType = EConsumableType.All;
 
         /**
+         * 错位布局（如250ml发酵瓶：8行3列，偶数行X方向向左偏移半个孔距（B、D、F...））
+         */
+        public bool Staggered = false;
+
+        /**
          * 行走高度
          */
         // 行走高度
