@@ -29,7 +29,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         /// <summary>
         /// 搅拌开始（默认常关，所以开发1，关发0）
         /// </summary>
-        /// <param name="num">转子序号：1~4；5：全部</param>
+        /// <param name="num">转子序号：1~2；3：全部</param>
         /// <param name="isNeedManualStop"></param>
         /// <returns></returns>
         public static bool ShakeStart(int num, bool isNeedManualStop)
@@ -44,13 +44,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                     result = DoCmd("OO31", isNeedManualStop);
                     break;
                 case 3:
-                    result = DoCmd("OO41", isNeedManualStop);
-                    break;
-                case 4:
-                    result = DoCmd("OO51", isNeedManualStop);
-                    break;
-                case 5:
-                    result = DoCmd("OO21,OO31,OO41,OO51", isNeedManualStop);
+                    result = DoCmd("OO21,OO31", isNeedManualStop);
                     break;
             }
 
@@ -60,7 +54,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         /// <summary>
         /// 搅拌停止
         /// </summary>
-        /// <param name="num">转子序号：1~4；5：全部</param>
+        /// <param name="num">转子序号：1~2；3：全部</param>
         /// <param name="isNeedManualStop"></param>
         /// <returns></returns>
         public static bool ShakeStop(int num, bool isNeedManualStop)
@@ -75,13 +69,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                     result = DoCmd("OO30", isNeedManualStop);
                     break;
                 case 3:
-                    result = DoCmd("OO40", isNeedManualStop);
-                    break;
-                case 4:
-                    result = DoCmd("OO50", isNeedManualStop);
-                    break;
-                case 5:
-                    result = DoCmd("OO20,OO30,OO40,OO50", isNeedManualStop);
+                    result = DoCmd("OO20,OO30", isNeedManualStop);
                     break;
             }
 

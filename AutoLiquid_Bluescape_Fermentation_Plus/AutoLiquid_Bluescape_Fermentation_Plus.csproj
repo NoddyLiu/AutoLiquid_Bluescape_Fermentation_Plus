@@ -175,7 +175,6 @@
     <Compile Include="UserControls\DataGridNumericColumn.cs" />
     <Compile Include="UserControls\DataGridWithRowNum.cs" />
     <Compile Include="UserControls\TextBoxInteger.cs" />
-    <Compile Include="Utils\CmdHelperPump.cs" />
     <Compile Include="Utils\CmdHelper.cs" />
     <Compile Include="Utils\CmdHelperTemp.cs" />
     <Compile Include="Utils\ConstantsUtils.cs" />

@@ -728,8 +728,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
             // 转子
             this.BtnShake1.Click += BtnOnClick;
             this.BtnShake2.Click += BtnOnClick;
-            this.BtnShake3.Click += BtnOnClick;
-            this.BtnShake4.Click += BtnOnClick;
             // 安装钢针
             this.BtnInstallSteelNeedle.Click += BtnOnClick;
             // 紫外灯
@@ -1041,38 +1039,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 {
                     CmdHelperTemp.ShakeStop(2, false);
                     this.BtnShake2.Content = (string)this.FindResource("Shake2Open");
-                }
-            }
-            // 转子3
-            else if (sender.Equals(this.BtnShake3))
-            {
-                // 开
-                if (this.BtnShake3.Content.Equals((string)this.FindResource("Shake3Open")))
-                {
-                    CmdHelperTemp.ShakeStart(3, false);
-                    this.BtnShake3.Content = (string)this.FindResource("Shake3Close");
-                }
-                // 关
-                else
-                {
-                    CmdHelperTemp.ShakeStop(3, false);
-                    this.BtnShake3.Content = (string)this.FindResource("Shake3Open");
-                }
-            }
-            // 转子4
-            else if (sender.Equals(this.BtnShake4))
-            {
-                // 开
-                if (this.BtnShake4.Content.Equals((string)this.FindResource("Shake4Open")))
-                {
-                    CmdHelperTemp.ShakeStart(4, false);
-                    this.BtnShake4.Content = (string)this.FindResource("Shake4Close");
-                }
-                // 关
-                else
-                {
-                    CmdHelperTemp.ShakeStop(4, false);
-                    this.BtnShake4.Content = (string)this.FindResource("Shake4Open");
                 }
             }
             // 安装钢针
