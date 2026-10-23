@@ -124,7 +124,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
 
             // 网络通信
             CanNet();
-            CanNetTemp();
             CanNetPump();
 
             // 初始化控件
@@ -229,24 +228,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 // 打开红指示灯
                 CmdHelper.LightOn(ELight.Red, false);
             }
-        }
-
-        /// <summary>
-        /// 设置温度、搅拌网络通信
-        /// </summary>
-        private void CanNetTemp()
-        {
-            if (!CmdHelperTemp.frmDAE.TestNet())
-            {
-                MessageBox.Show(CmdHelperTemp.frmDAE.remoteIP + (string)this.FindResource("Prompt_Host_Disconnect_Pls_Check_Again"));
-                SetLoadingStatus(ERunStatus.Stop);
-                // 打开红指示灯
-                CmdHelper.LightOn(ELight.Red, false);
-                return;
-            }
-
-            isCanNetSuccess = true;
-            CmdHelperTemp.frmDAE.IsShowFormTip = false;
         }
 
         /// <summary>
@@ -465,9 +446,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         CmdHelper.FanClose(false);
                         // 关闭指示灯
                         CmdHelper.ResetAllLight(false);
-                        // 关闭阀和泵
-                        CmdHelper.ValveAndPumpClose(false);
-
                         // 关闭紧急停止停止功能
                         if (ParamsHelper.IO.DoorAvailable || ParamsHelper.IO.EmergencyStopAvailable)
                             CmdHelper.EmergencyStopClose(false);
@@ -1015,13 +993,13 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 // 开
                 if (this.BtnShake1.Content.Equals((string)this.FindResource("Shake1Open")))
                 {
-                    CmdHelperTemp.ShakeStart(1, false);
+                    CmdHelper.ShakeStart(1, false);
                     this.BtnShake1.Content = (string)this.FindResource("Shake1Close");
                 }
                 // 关
                 else
                 {
-                    CmdHelperTemp.ShakeStop(1, false);
+                    CmdHelper.ShakeStop(1, false);
                     this.BtnShake1.Content = (string)this.FindResource("Shake1Open");
                 }
             }
@@ -1031,13 +1009,13 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 // 开
                 if (this.BtnShake2.Content.Equals((string)this.FindResource("Shake2Open")))
                 {
-                    CmdHelperTemp.ShakeStart(2, false);
+                    CmdHelper.ShakeStart(2, false);
                     this.BtnShake2.Content = (string)this.FindResource("Shake2Close");
                 }
                 // 关
                 else
                 {
-                    CmdHelperTemp.ShakeStop(2, false);
+                    CmdHelper.ShakeStop(2, false);
                     this.BtnShake2.Content = (string)this.FindResource("Shake2Open");
                 }
             }
@@ -1966,7 +1944,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                             var num = seq.SourceTemplateIndex + 1;
                             var shakeSec = seq.Time * 60;
 
-                            CmdHelperTemp.ShakeStart(num, true);
+                            CmdHelper.ShakeStart(num, true);
                             if (shakeSec > 0)
                             {
                                 Dispatcher.Invoke(() =>
@@ -1998,7 +1976,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         {
                             LogHelper.Info((string)this.FindResource("ShakeStop"), "");
                             var num = seq.SourceTemplateIndex + 1;
-                            CmdHelperTemp.ShakeStop(num, true);
+                            CmdHelper.ShakeStop(num, true);
                         }
                         break;
                     #endregion

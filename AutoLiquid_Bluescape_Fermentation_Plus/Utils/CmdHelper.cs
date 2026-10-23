@@ -26,7 +26,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
     public class CmdHelper
     {
         // 通信窗体
-        public static DAERun.FrmMain frmDAE = new DAERun.FrmMain("192.168.1.5", 4000, "workplate.xml");
+        public static DAERun.FrmMain frmDAE = new DAERun.FrmMain("192.168.1.3", 4000, "workplate.xml");
 
         // 注射泵通信
         public static TtySTransport pumpTransport = new TtySTransport(new TtySConfig
@@ -1222,11 +1222,10 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                                 /**
                                  * 吸入设定的空气，再次PA0
                                  */
-                                // 打开空气阀和泵
-                                ValveAndPumpOpen(true);
                                 // 开泵延时计时
                                 var openPumpDelayStart = DateTime.Now;
-                                Ps(headUsedIndex, cleaningHeadAbsorbAirAfterJet, true);
+                                // 需要切换进水阀方向
+                                Ps(headUsedIndex, cleaningHeadAbsorbAirAfterJet, true, true);
                                 Pa(headUsedIndex, 0, true);
                                 // 喷空气后等待时间
                                 Thread.Sleep((int)(cleaningHeadJetAirDelay * 1000));
@@ -1235,8 +1234,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                                 {
                                     Thread.Sleep(5);
                                 }
-                                // 关闭空气阀和泵
-                                ValveAndPumpClose(true);
                             }
                             else
                                 Ps(headUsedIndex, volumeAirCleaningHead * -1, true);
@@ -1493,8 +1490,9 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         /// </summary>
         /// <param name="headUsedIndex">移液头Index</param>
         /// <param name="p">毫升</param>
-        /// <param name="isNeedManualStop"></param>
-        public static bool Pa(int headUsedIndex, decimal p, bool isNeedManualStop = false)
+        /// <param name="isNeedManualStop">是否需要手动停止</param>
+        /// <param name="openValveSwitch">进水阀切换</param>
+        public static bool Pa(int headUsedIndex, decimal p, bool isNeedManualStop = false, bool openValveSwitch = false)
         {
             if (ParamsHelper.HeadList[headUsedIndex].PAvailable)
             {
@@ -1508,7 +1506,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                         if (p > 0)
                         {
                             var stepsPump = PumpHelper.GetStepsFromVolume(p * 1000);
-                            wb.Pull(stepsPump, "", "");
+                            wb.Pull(stepsPump, openValveSwitch, "", "");
                         }
                         // 喷液
                         else if (p < 0)
@@ -1534,7 +1532,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         /// <param name="headUsedIndex">移液头Index</param>
         /// <param name="p"></param>
         /// <param name="isNeedManualStop"></param>
-        public static bool Ps(int headUsedIndex, decimal p, bool isNeedManualStop)
+        /// <param name="openValveSwitch">进水阀切换</param>
+        public static bool Ps(int headUsedIndex, decimal p, bool isNeedManualStop, bool openValveSwitch = false)
         {
             if (ParamsHelper.HeadList[headUsedIndex].PAvailable)
             {
@@ -1548,7 +1547,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                         if (p > 0)
                         {
                             var stepsPump = PumpHelper.GetStepsFromVolume(p * 1000);
-                            wb.Pull(stepsPump, "", "");
+                            wb.Pull(stepsPump, openValveSwitch, "", "");
                         }
                         // 喷液
                         else if (p < 0)
@@ -1700,6 +1699,56 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         }
 
         /// <summary>
+        /// 搅拌开始（默认常关，所以开发1，关发0）
+        /// </summary>
+        /// <param name="num">转子序号：1~2；3：全部</param>
+        /// <param name="isNeedManualStop"></param>
+        /// <returns></returns>
+        public static bool ShakeStart(int num, bool isNeedManualStop)
+        {
+            var result = true;
+            switch (num)
+            {
+                case 1:
+                    result = DoCmd("AO41", isNeedManualStop);
+                    break;
+                case 2:
+                    result = DoCmd("AO51", isNeedManualStop);
+                    break;
+                case 3:
+                    result = DoCmd("AO41,AO51", isNeedManualStop);
+                    break;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 搅拌停止
+        /// </summary>
+        /// <param name="num">转子序号：1~2；3：全部</param>
+        /// <param name="isNeedManualStop"></param>
+        /// <returns></returns>
+        public static bool ShakeStop(int num, bool isNeedManualStop)
+        {
+            var result = true;
+            switch (num)
+            {
+                case 1:
+                    result = DoCmd("AO40", isNeedManualStop);
+                    break;
+                case 2:
+                    result = DoCmd("AO50", isNeedManualStop);
+                    break;
+                case 3:
+                    result = DoCmd("AO40,AO50", isNeedManualStop);
+                    break;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// 紧急停止功能状态查询
         /// <param name="isNeedManualStop">是否需要手动停止功能</param>
         /// </summary>
@@ -1831,26 +1880,6 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         {
             LogHelper.Info((string)Application.Current.FindResource("CoolUnavailable"), "");
             DoCmd("AO50", isNeedManualStop);
-        }
-
-        /// <summary>
-        /// 空气阀和空气泵打开
-        /// <param name="isNeedManualStop">是否需要手动停止功能</param>
-        /// </summary>
-        public static void ValveAndPumpOpen(bool isNeedManualStop)
-        {
-            LogHelper.Info((string)Application.Current.FindResource("ValveAndPumpAvailable"), "");
-            DoCmd("OO11,OO21", isNeedManualStop);
-        }
-
-        /// <summary>
-        /// 空气阀和空气泵关闭
-        /// <param name="isNeedManualStop">是否需要手动停止功能</param>
-        /// </summary>
-        public static void ValveAndPumpClose(bool isNeedManualStop)
-        {
-            LogHelper.Info((string)Application.Current.FindResource("ValveAndPumpUnavailable"), "");
-            DoCmd("OO10,OO20", isNeedManualStop);
         }
 
         /// <summary>

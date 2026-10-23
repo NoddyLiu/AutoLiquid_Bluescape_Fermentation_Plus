@@ -1,3 +1,4 @@
+using AutoLiquid_Bluescape_Fermentation_Plus.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -36,6 +37,18 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
             _busMutex = busMutex ?? new SemaphoreSlim(1, 1);
         }
 
+        /// <summary>泵标识，用于日志，形如 左泵(addr=1)。</summary>
+        public string PumpTag
+        {
+            get
+            {
+                PumpId? pid = PumpIdExtensions.FromAddress(_addr);
+                return pid.HasValue
+                    ? (pid.Value.DisplayName() + "(addr=" + _addr + ")")
+                    : ("泵(addr=" + _addr + ")");
+            }
+        }
+
         public Task OpenAsync(CancellationToken ct = default)
         {
             return Task.Run(() => _transport.Open(), ct);
@@ -49,20 +62,77 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         /// <summary>
         /// 发送 OEM dataBlock（ASCII 命令串），等待一帧合法回复。
         /// </summary>
+        //public async Task<OemResponse> RequestAsync(string dataBlockAscii, long timeoutMs, CancellationToken ct = default)
+        //{
+        //    await _busMutex.WaitAsync(ct).ConfigureAwait(false);
+        //    try
+        //    {
+        //        var frame = new OemFrame(_addr, '1', dataBlockAscii ?? "");
+        //        var bytes = OemCodec.Encode(frame);
+
+        //        // 发送前清空队列，防止粘连
+        //        var clearable = _transport as ISupportsPreSendClear;
+        //        if (clearable != null) clearable.ClearRxQueue();
+
+        //        await Task.Run(() => _transport.Write(bytes), ct).ConfigureAwait(false);
+        //        return await AwaitOneResponseAsync(timeoutMs, ct).ConfigureAwait(false);
+        //    }
+        //    finally
+        //    {
+        //        _busMutex.Release();
+        //    }
+        //}
         public async Task<OemResponse> RequestAsync(string dataBlockAscii, long timeoutMs, CancellationToken ct = default)
         {
             await _busMutex.WaitAsync(ct).ConfigureAwait(false);
+            string cmd = dataBlockAscii ?? "";
             try
             {
-                var frame = new OemFrame(_addr, '1', dataBlockAscii ?? "");
-                var bytes = OemCodec.Encode(frame);
+                byte[] bytes;
+                try
+                {
+                    bytes = OemCodec.Encode(new OemFrame(_addr, '1', cmd));
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Error(PumpTag + " 指令编码失败, cmd=" + cmd + ", err=" + ex.GetType().Name + ": " + ex.Message);
+                    throw;
+                }
 
                 // 发送前清空队列，防止粘连
                 var clearable = _transport as ISupportsPreSendClear;
                 if (clearable != null) clearable.ClearRxQueue();
 
-                await Task.Run(() => _transport.Write(bytes), ct).ConfigureAwait(false);
-                return await AwaitOneResponseAsync(timeoutMs, ct).ConfigureAwait(false);
+                try
+                {
+                    await Task.Run(() => _transport.Write(bytes), ct).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) { throw; }   // 取消不算故障
+                catch (Exception ex)
+                {
+                    LogHelper.Error(PumpTag + " 指令发送失败, cmd=" + cmd
+                        + ", tx=" + OemCodec.ToHexString(bytes)
+                        + ", err=" + ex.GetType().Name + ": " + ex.Message);
+                    throw;
+                }
+
+                try
+                {
+                    return await AwaitOneResponseAsync(timeoutMs, ct).ConfigureAwait(false);
+                }
+                catch (OperationCanceledException) { throw; }
+                catch (TimeoutException ex)
+                {
+                    LogHelper.Error(PumpTag + " 指令响应超时, cmd=" + cmd
+                        + ", timeout=" + timeoutMs + "ms, err=" + ex.Message);
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Error(PumpTag + " 指令响应异常, cmd=" + cmd
+                        + ", err=" + ex.GetType().Name + ": " + ex.Message);
+                    throw;
+                }
             }
             finally
             {
@@ -99,6 +169,19 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         /// <summary>
         /// 查询错误码和状态字；调用 Q 命令，从响应帧的 statusByte 解出。
         /// </summary>
+        //public async Task<Sp1StatusWord> QueryStatusWordAsync(long? timeoutMs = null, CancellationToken ct = default)
+        //{
+        //    try
+        //    {
+        //        var resp = await QueryAsync(Sp1Cmd.QErrorAndStatusWord(), timeoutMs, ct).ConfigureAwait(false);
+        //        int errCode = resp.ErrorCode;
+        //        return new Sp1StatusWord(resp.StatusByte, resp.IsIdle, errCode, Sp1ErrorCodeExtensions.From(errCode));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return null;
+        //    }
+        //}
         public async Task<Sp1StatusWord> QueryStatusWordAsync(long? timeoutMs = null, CancellationToken ct = default)
         {
             try
@@ -107,8 +190,15 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
                 int errCode = resp.ErrorCode;
                 return new Sp1StatusWord(resp.StatusByte, resp.IsIdle, errCode, Sp1ErrorCodeExtensions.From(errCode));
             }
-            catch (Exception)
+            catch (OperationCanceledException)
             {
+                throw;   // 取消不记为故障
+            }
+            catch (Exception ex)
+            {
+                // 原来这里完全静默返回 null，导致上层分不清"查询失败"和"泵不空闲"
+                LogHelper.Error(PumpTag + " 状态字查询失败(Q指令), timeout=" + (timeoutMs ?? _defaultTimeoutMs)
+                    + "ms, err=" + ex.GetType().Name + ": " + ex.Message);
                 return null;
             }
         }
@@ -117,11 +207,65 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         /// 流式读取 chunk 流式解帧，直到命中一个完整响应或超时。
         /// 命中后立即返回；buffer 过大时裁掉老数据（保留 1KB 尾部 + 重置 cursor）。
         /// </summary>
+        //private async Task<OemResponse> AwaitOneResponseAsync(long timeoutMs, CancellationToken ct)
+        //{
+        //    var startMs = CurrentTimeMillis();
+        //    var buffer = new List<byte>();
+        //    int cursor = 0;
+
+        //    while (CurrentTimeMillis() - startMs < timeoutMs)
+        //    {
+        //        ct.ThrowIfCancellationRequested();
+
+        //        byte[] chunk;
+        //        try
+        //        {
+        //            // Transport.Read 是阻塞调用，包到 Task.Run 异步化
+        //            chunk = await Task.Run(() => _transport.Read(256, 120), ct).ConfigureAwait(false);
+        //        }
+        //        catch (Exception)
+        //        {
+        //            chunk = new byte[0];
+        //        }
+
+        //        if (chunk != null && chunk.Length > 0)
+        //        {
+        //            buffer.AddRange(chunk);
+
+        //            while (true)
+        //            {
+        //                byte[] ba = buffer.ToArray();
+        //                var pair = OemCodec.TryDecodeOne(ba, cursor);
+        //                var resp = pair.Item1;
+        //                int next = pair.Item2;
+        //                if (resp != null) return resp;
+        //                if (next <= cursor) break;
+        //                cursor = next;
+        //                if (cursor >= buffer.Count) break;
+        //            }
+
+        //            // 防止 buffer 无限增长（保留尾部 1KB）
+        //            if (buffer.Count > 4096)
+        //            {
+        //                buffer = buffer.GetRange(buffer.Count - 1024, 1024);
+        //                cursor = 0;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            await Task.Delay(10, ct).ConfigureAwait(false);
+        //        }
+        //    }
+
+        //    throw new TimeoutException("OEM response timeout: " + timeoutMs + "ms");
+        //}
         private async Task<OemResponse> AwaitOneResponseAsync(long timeoutMs, CancellationToken ct)
         {
             var startMs = CurrentTimeMillis();
             var buffer = new List<byte>();
             int cursor = 0;
+            int readFailCount = 0;
+            bool readFailLogged = false;
 
             while (CurrentTimeMillis() - startMs < timeoutMs)
             {
@@ -133,9 +277,17 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
                     // Transport.Read 是阻塞调用，包到 Task.Run 异步化
                     chunk = await Task.Run(() => _transport.Read(256, 120), ct).ConfigureAwait(false);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    // 原来直接吞掉，串口掉了也会一路走到超时，日志里看不出根因
+                    readFailCount++;
                     chunk = new byte[0];
+                    if (!readFailLogged)
+                    {
+                        readFailLogged = true;
+                        LogHelper.Error(PumpTag + " 串口读取异常(本轮共" + readFailCount + "次), err="
+                            + ex.GetType().Name + ": " + ex.Message);
+                    }
                 }
 
                 if (chunk != null && chunk.Length > 0)
@@ -167,7 +319,12 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
                 }
             }
 
-            throw new TimeoutException("OEM response timeout: " + timeoutMs + "ms");
+            long elapsed = CurrentTimeMillis() - startMs;
+            throw new TimeoutException("OEM response timeout: " + timeoutMs + "ms"
+                + " pump=" + _addr
+                + " actualElapsed=" + elapsed + "ms"
+                + " rxBytes=" + buffer.Count
+                + " readFail=" + readFailCount);
         }
 
         private static long CurrentTimeMillis()

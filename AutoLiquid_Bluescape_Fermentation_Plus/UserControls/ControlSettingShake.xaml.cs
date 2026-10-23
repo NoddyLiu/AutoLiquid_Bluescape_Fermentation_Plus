@@ -61,7 +61,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             if (sender.Equals(this.BtnShakeSpeedMaxStart))
             {
                 BackgroundProcess.RunAsync(
-                    delegate () { CmdHelperTemp.ShakeStart(3, false); },
+                    delegate () { CmdHelper.ShakeStart(3, false); },
                     delegate ()
                     {
                     });
@@ -69,7 +69,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             else if (sender.Equals(this.BtnShakeSpeedMaxStop))
             {
                 BackgroundProcess.RunAsync(
-                    delegate () { CmdHelperTemp.ShakeStop(3, false); },
+                    delegate () { CmdHelper.ShakeStop(3, false); },
                     delegate ()
                     {
                     });

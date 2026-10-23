@@ -44,6 +44,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         private volatile bool _running;
         private readonly TtyRxQueue _rxQueue;
         private readonly object _writeLock = new object();
+        // 后台读线程异常日志限流计数（防止串口掉线后刷屏）
+        private int _rxErrCount;
 
         public PumpManager mgr;
 
@@ -73,10 +75,16 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
                 _ = mgr.OpenAllAsync();
                 LogHelper.Info("注射泵已连接", "");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _running = false;
                 SafeCloseInternal();
+                LogHelper.Error("[注射泵] 串口打开失败, port=" + _config.PortName
+                    + ", baud=" + _config.BaudRate
+                    + ", dataBits=" + _config.DataBits
+                    + ", stopBits=" + _config.StopBits
+                    + ", parity=" + _config.Parity
+                    + ", err=" + ex.GetType().Name + ": " + ex.Message);
                 throw;
             }
         }
@@ -100,16 +108,50 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         /// <summary>
         /// 由 SerialPort 在后台 IO 线程触发。
         /// </summary>
+        //private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
+        //{
+        //    SerialPort sp;
+        //    try { sp = _serialPort; }
+        //    catch { return; }
+        //    if (sp == null || !_running) return;
+
+        //    int avail;
+        //    try { avail = sp.BytesToRead; }
+        //    catch { return; }
+        //    if (avail <= 0) return;
+
+        //    // 单次最多读 1KB，防止长帧把 IO 线程吊死
+        //    int toRead = Math.Min(avail, 1024);
+        //    var buf = new byte[toRead];
+        //    int read = 0;
+        //    try { read = sp.Read(buf, 0, toRead); }
+        //    catch { return; }
+
+        //    if (read > 0)
+        //    {
+        //        var chunk = new byte[read];
+        //        Array.Copy(buf, 0, chunk, 0, read);
+        //        _rxQueue.Enqueue(chunk);
+        //    }
+        //}
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp;
             try { sp = _serialPort; }
-            catch { return; }
+            catch (Exception ex)
+            {
+                LogRxError("取串口对象失败", ex);
+                return;
+            }
             if (sp == null || !_running) return;
 
             int avail;
             try { avail = sp.BytesToRead; }
-            catch { return; }
+            catch (Exception ex)
+            {
+                LogRxError("BytesToRead 失败", ex);
+                return;
+            }
             if (avail <= 0) return;
 
             // 单次最多读 1KB，防止长帧把 IO 线程吊死
@@ -117,26 +159,69 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
             var buf = new byte[toRead];
             int read = 0;
             try { read = sp.Read(buf, 0, toRead); }
-            catch { return; }
+            catch (Exception ex)
+            {
+                LogRxError("读取失败", ex);
+                return;
+            }
 
             if (read > 0)
             {
                 var chunk = new byte[read];
                 Array.Copy(buf, 0, chunk, 0, read);
                 _rxQueue.Enqueue(chunk);
+                _rxErrCount = 0;   // 读成功后复位限流
             }
         }
 
+        /// <summary>后台读线程异常日志（前 3 次必打，之后只计数，防止串口掉线刷屏）。</summary>
+        private void LogRxError(string scene, Exception ex)
+        {
+            _rxErrCount++;
+            if (_rxErrCount > 3) return;
+            LogHelper.Error("[注射泵] 后台读线程" + scene + ", port=" + _config.PortName
+                + ", 累计=" + _rxErrCount
+                + ", err=" + ex.GetType().Name + ": " + ex.Message);
+        }
+
+        //public void Write(byte[] data)
+        //{
+        //    if (data == null) throw new ArgumentNullException(nameof(data));
+        //    var sp = _serialPort;
+        //    if (sp == null || !_running)
+        //        throw new InvalidOperationException("Transport not open");
+
+        //    lock (_writeLock)
+        //    {
+        //        sp.Write(data, 0, data.Length);
+        //    }
+        //    // SerialPort 没有独立 Flush（BaseStream.Flush 同样有效，Write 之后 SerialPort 内部 buffer 会自己排空；
+        //    // 这里为了对齐 Android 端的"write+flush"语义，主动 flush BaseStream）
+        //    try { sp.BaseStream.Flush(); } catch { /* best effort */ }
+        //}
         public void Write(byte[] data)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
             var sp = _serialPort;
             if (sp == null || !_running)
+            {
+                LogHelper.Error("[注射泵] 串口未打开就尝试发送, port=" + _config.PortName + ", len=" + data.Length);
                 throw new InvalidOperationException("Transport not open");
+            }
 
             lock (_writeLock)
             {
-                sp.Write(data, 0, data.Length);
+                try
+                {
+                    sp.Write(data, 0, data.Length);
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.Error("[注射泵] 串口写失败, port=" + _config.PortName
+                        + ", len=" + data.Length
+                        + ", err=" + ex.GetType().Name + ": " + ex.Message);
+                    throw;
+                }
             }
             // SerialPort 没有独立 Flush（BaseStream.Flush 同样有效，Write 之后 SerialPort 内部 buffer 会自己排空；
             // 这里为了对齐 Android 端的"write+flush"语义，主动 flush BaseStream）

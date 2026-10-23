@@ -234,7 +234,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
             return dst;
         }
 
-        private static string ToHexString(byte[] bytes)
+        public static string ToHexString(byte[] bytes)
         {
             if (bytes == null) return "";
             var sb = new StringBuilder(bytes.Length * 3);

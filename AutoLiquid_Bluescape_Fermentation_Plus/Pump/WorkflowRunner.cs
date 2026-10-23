@@ -1,3 +1,4 @@
+using AutoLiquid_Bluescape_Fermentation_Plus.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -196,7 +197,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
          */
         public void SetSpeed(int speedLevel)
         {
-            SpeedLevel(speedLevel); 
+            SpeedLevel(speedLevel);
             ExecuteNow();
             AwaitIdle();
             EnsureNoError();
@@ -213,19 +214,24 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
             InitZ(1);
             ExecuteNow("初始化");
             // 等待空闲状态
-           AwaitIdle();
+            AwaitIdle();
             EnsureNoError("初始化检查");
         }
 
         /**
          * 抽液（相对位置）
          * @param steps 抽液步数
+         * @param valveSwitch 是否切换阀来抽液
          * @param executeNote 执行动作打印信息
          * @param checkNote 错误检测信息
          */
-        public void Pull(int steps, String executeNote = "", String checkNote = "")
+        public void Pull(int steps, bool valveSwitch = false, String executeNote = "", String checkNote = "")
         {
-            ValveIn();
+            if (valveSwitch)
+                ValveOut();
+            else
+                ValveIn();
+
             Pull(steps);
             DelayCmd(200);
             ExecuteNow(executeNote);
@@ -236,12 +242,14 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         /**
          * 分液（相对位置）
          * @param steps 分液步数
+         * @param valveSwitch 是否切换阀来分液
          * @param executeNote 执行动作打印信息
          * @param checkNote 错误检测信息
          */
         public void Dispense(int steps, String executeNote = "", String checkNote = "")
         {
-            ValveOut();
+            ValveIn();
+
             Dispense(steps);
             DelayCmd(200);
             ExecuteNow(executeNote);
@@ -257,7 +265,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
          */
         public void DispenseAll(String executeNote = "", String checkNote = "")
         {
-            ValveOut();
+            ValveIn();
+
             MoveAbs(0);
             DelayCmd(200);
             ExecuteNow(executeNote);
@@ -291,6 +300,63 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
             _log = log ?? (delegate { });
         }
 
+        //public async Task RunAsync(IReadOnlyList<Step> steps, CancellationToken ct = default)
+        //{
+        //    if (steps == null) return;
+        //    for (int i = 0; i < steps.Count; i++)
+        //    {
+        //        ct.ThrowIfCancellationRequested();
+        //        Step s = steps[i];
+
+        //        var sendStep = s as Step.Send;
+        //        if (sendStep != null)
+        //        {
+        //            _log("SEND " + sendStep.Note + ": " + sendStep.ChainAscii);
+        //            await _client.ExecuteChainAsync(sendStep.ChainAscii, true, null, ct).ConfigureAwait(false);
+        //            continue;
+        //        }
+
+        //        var sleepStep = s as Step.Sleep;
+        //        if (sleepStep != null)
+        //        {
+        //            _log("SLEEP " + sleepStep.Note + ": " + sleepStep.Ms + "ms");
+        //            await Task.Delay(TimeSpan.FromMilliseconds(sleepStep.Ms), ct).ConfigureAwait(false);
+        //            continue;
+        //        }
+
+        //        var idleStep = s as Step.AwaitIdle;
+        //        if (idleStep != null)
+        //        {
+        //            long startMs = NowMs();
+        //            while (NowMs() - startMs < idleStep.TimeoutMs)
+        //            {
+        //                ct.ThrowIfCancellationRequested();
+        //                var st = await _client.QueryStatusWordAsync(null, ct).ConfigureAwait(false);
+        //                if (st != null && st.IsIdle) break;
+        //                await Task.Delay(TimeSpan.FromMilliseconds(idleStep.PollMs), ct).ConfigureAwait(false);
+        //            }
+        //            continue;
+        //        }
+
+        //        var ensureStep = s as Step.EnsureNoError;
+        //        if (ensureStep != null)
+        //        {
+        //            Sp1StatusWord st = null;
+        //            // 加入重试机制：工业 RS485 总线在电机运行时容易受干扰丢包，给予 3 次重试机会
+        //            for (int r = 0; r < 3; r++)
+        //            {
+        //                st = await _client.QueryStatusWordAsync(null, ct).ConfigureAwait(false);
+        //                if (st != null) break;
+        //                await Task.Delay(TimeSpan.FromMilliseconds(300), ct).ConfigureAwait(false);
+        //            }
+        //            if (st == null)
+        //                throw new Exception("Q parse failed (" + ensureStep.Note + "：连续3次状态查询均超时无响应)");
+        //            if (st.ErrorCode != 0)
+        //                throw new Exception("Pump error=" + st.ErrorCode + " raw=" + st.Raw + " (" + ensureStep.Note + ")");
+        //            continue;
+        //        }
+        //    }
+        //}
         public async Task RunAsync(IReadOnlyList<Step> steps, CancellationToken ct = default)
         {
             if (steps == null) return;
@@ -298,12 +364,24 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
             {
                 ct.ThrowIfCancellationRequested();
                 Step s = steps[i];
+                string tag = _client.PumpTag + " step[" + i + "]";
 
                 var sendStep = s as Step.Send;
                 if (sendStep != null)
                 {
                     _log("SEND " + sendStep.Note + ": " + sendStep.ChainAscii);
-                    await _client.ExecuteChainAsync(sendStep.ChainAscii, true, null, ct).ConfigureAwait(false);
+                    try
+                    {
+                        await _client.ExecuteChainAsync(sendStep.ChainAscii, true, null, ct).ConfigureAwait(false);
+                    }
+                    catch (OperationCanceledException) { throw; }
+                    catch (Exception ex)
+                    {
+                        LogHelper.Error(tag + " 指令执行失败, note=" + sendStep.Note
+                            + ", cmd=" + sendStep.ChainAscii
+                            + ", err=" + ex.GetType().Name + ": " + ex.Message);
+                        throw;
+                    }
                     continue;
                 }
 
@@ -319,12 +397,31 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
                 if (idleStep != null)
                 {
                     long startMs = NowMs();
+                    bool idleReached = false;
+                    int queryFailCount = 0;
                     while (NowMs() - startMs < idleStep.TimeoutMs)
                     {
                         ct.ThrowIfCancellationRequested();
                         var st = await _client.QueryStatusWordAsync(null, ct).ConfigureAwait(false);
-                        if (st != null && st.IsIdle) break;
+                        if (st == null)
+                        {
+                            queryFailCount++;
+                        }
+                        else if (st.IsIdle)
+                        {
+                            idleReached = true;
+                            break;
+                        }
                         await Task.Delay(TimeSpan.FromMilliseconds(idleStep.PollMs), ct).ConfigureAwait(false);
+                    }
+
+                    // 原来等待空闲超时时直接 continue，什么都不打，故障完全看不见
+                    // 这里只补日志，不改变控制流（仍继续往下走，由后面的 EnsureNoError 决定）
+                    if (!idleReached)
+                    {
+                        LogHelper.Error(tag + " 等待泵空闲超时, timeout=" + idleStep.TimeoutMs
+                            + "ms, 实际耗时=" + (NowMs() - startMs) + "ms"
+                            + ", 期间状态查询失败=" + queryFailCount + "次");
                     }
                     continue;
                 }
@@ -341,9 +438,22 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
                         await Task.Delay(TimeSpan.FromMilliseconds(300), ct).ConfigureAwait(false);
                     }
                     if (st == null)
+                    {
+                        LogHelper.Error(tag + " 状态查询连续3次失败, note=" + ensureStep.Note
+                            + ", 无法确认泵是否报错");
                         throw new Exception("Q parse failed (" + ensureStep.Note + "：连续3次状态查询均超时无响应)");
+                    }
                     if (st.ErrorCode != 0)
+                    {
+                        string desc = st.Error.HasValue
+                            ? st.Error.Value.DescZh()
+                            : ("未定义错误码(" + st.ErrorCode + ")");
+                        LogHelper.Error(tag + " 泵报错, note=" + ensureStep.Note
+                            + ", errorCode=" + st.ErrorCode + " " + desc
+                            + ", statusByte=0x" + st.Raw.ToString("X2")
+                            + " raw=" + st.Raw);
                         throw new Exception("Pump error=" + st.ErrorCode + " raw=" + st.Raw + " (" + ensureStep.Note + ")");
+                    }
                     continue;
                 }
             }

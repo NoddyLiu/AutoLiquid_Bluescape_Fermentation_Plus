@@ -277,7 +277,7 @@ namespace DAERun
             {
                 if (socketSend != null && socketSend.Connected)
                 {
-                    socketSend.Disconnect(true);
+                    socketSend.Disconnect(false);
                     socketSend.Close();
                 }
 

@@ -1,3 +1,4 @@
+using AutoLiquid_Bluescape_Fermentation_Plus.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -174,13 +175,38 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         /// 唯一的工作流执行入口（对应 Android 端的 <c>runWorkflow(selection, workflow: WorkflowContext.() -> Unit)</c>）。
         /// selection 决定哪些泵被驱动；<paramref name="block"/> 在 <see cref="WorkflowContext"/> 上编排任务。
         /// </summary>
+        //public async Task RunWorkflowAsync(PumpSelection selection, Action<WorkflowContext> block, CancellationToken ct = default)
+        //{
+        //    if (selection == null) throw new ArgumentNullException(nameof(selection));
+        //    if (block == null) throw new ArgumentNullException(nameof(block));
+        //    var ctx = new WorkflowContext(this, selection);
+        //    block(ctx);
+        //    await ctx.ExecuteAsync(ct).ConfigureAwait(false);
+        //}
         public async Task RunWorkflowAsync(PumpSelection selection, Action<WorkflowContext> block, CancellationToken ct = default)
         {
             if (selection == null) throw new ArgumentNullException(nameof(selection));
             if (block == null) throw new ArgumentNullException(nameof(block));
-            var ctx = new WorkflowContext(this, selection);
-            block(ctx);
-            await ctx.ExecuteAsync(ct).ConfigureAwait(false);
+            try
+            {
+                var ctx = new WorkflowContext(this, selection);
+                block(ctx);
+                await ctx.ExecuteAsync(ct).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;   // 取消不是故障，不记错误日志
+            }
+            catch (Exception ex)
+            {
+                // 最外层兜底。日志后仍然抛出，保持原有异常传播语义不变
+                var names = new List<string>();
+                foreach (var pid in selection.GetTargetPumps()) names.Add(pid.DisplayName());
+
+                LogHelper.Error("[注射泵] 工作流执行失败, 目标泵=" + string.Join("/", names.ToArray())
+                    + ", err=" + ex.GetType().Name + ": " + ex.Message);
+                throw;
+            }
         }
 
         private struct PumpInstance
