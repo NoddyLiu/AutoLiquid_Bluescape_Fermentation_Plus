@@ -182,7 +182,7 @@
             </Grid>
 
             <StackPanel  x:Name="BottomBar" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-                <Button x:Name="BtnFan" Content="{StaticResource FanOpen}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="70" Height="40" FontSize="20" Margin="10,0,0,0"/>
+                <Button x:Name="BtnFan" Content="{StaticResource FanOpen}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="70" Height="40" FontSize="20" Margin="10,0,0,0" Visibility="Collapsed"/>
                 <Button x:Name="BtnShake1" Content="{StaticResource Shake1Open}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="80" Height="40" FontSize="20" Margin="10,0,0,0"/>
                 <Button x:Name="BtnShake2" Content="{StaticResource Shake2Open}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="80" Height="40" FontSize="20" Margin="5,0,0,0"/>
                 <Button x:Name="BtnInstallSteelNeedle" Content="{StaticResource InstallSteelNeedle}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="90" Height="40" FontSize="20" Margin="10,0,0,0"/>

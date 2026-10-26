@@ -1778,25 +1778,25 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
             DoCmd("A9 0", isNeedManualStop);
         }
 
-        /// <summary>
-        /// 风扇打开
-        /// <param name="isNeedManualStop">是否需要手动停止功能</param>
-        /// </summary>
-        public static void FanOpen(bool isNeedManualStop)
-        {
-            LogHelper.Info((string)Application.Current.FindResource("FanAvailable"), "");
-            DoCmd("AO41", isNeedManualStop);
-        }
+        ///// <summary>
+        ///// 风扇打开
+        ///// <param name="isNeedManualStop">是否需要手动停止功能</param>
+        ///// </summary>
+        //public static void FanOpen(bool isNeedManualStop)
+        //{
+        //    LogHelper.Info((string)Application.Current.FindResource("FanAvailable"), "");
+        //    DoCmd("AO41", isNeedManualStop);
+        //}
 
-        /// <summary>
-        /// 风扇关闭
-        /// <param name="isNeedManualStop">是否需要手动停止功能</param>
-        /// </summary>
-        public static void FanClose(bool isNeedManualStop)
-        {
-            LogHelper.Info((string)Application.Current.FindResource("FanUnavailable"), "");
-            DoCmd("AO40", isNeedManualStop);
-        }
+        ///// <summary>
+        ///// 风扇关闭
+        ///// <param name="isNeedManualStop">是否需要手动停止功能</param>
+        ///// </summary>
+        //public static void FanClose(bool isNeedManualStop)
+        //{
+        //    LogHelper.Info((string)Application.Current.FindResource("FanUnavailable"), "");
+        //    DoCmd("AO40", isNeedManualStop);
+        //}
 
         /// <summary>
         /// 复位所有指示灯

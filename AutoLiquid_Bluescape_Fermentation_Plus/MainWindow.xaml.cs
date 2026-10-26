@@ -206,7 +206,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         // 风扇、紫外灯、制冷
                         if (isCanNetSuccess)
                         {
-                            CmdHelper.FanClose(false);
+                            //CmdHelper.FanClose(false);
                         }
 
                         // 设置留样区制冷温度
@@ -443,7 +443,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                     if (needControlIO)
                     {
                         // 关闭风扇
-                        CmdHelper.FanClose(false);
+                        //CmdHelper.FanClose(false);
                         // 关闭指示灯
                         CmdHelper.ResetAllLight(false);
                         // 关闭紧急停止停止功能
@@ -491,7 +491,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         if (status == ERunStatus.Running)
                         {
                             // 打开风扇
-                            CmdHelper.FanOpen(false);
+                            //CmdHelper.FanOpen(false);
 
                             // 打开紧急停止功能
                             if (ParamsHelper.IO.DoorAvailable || ParamsHelper.IO.EmergencyStopAvailable)
@@ -702,7 +702,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
             this.BtnProcedureChainDel.Click += BtnOnClick;
 
             // 风扇
-            this.BtnFan.Click += BtnOnClick;
+            //this.BtnFan.Click += BtnOnClick;
             // 转子
             this.BtnShake1.Click += BtnOnClick;
             this.BtnShake2.Click += BtnOnClick;
@@ -972,21 +972,21 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 SetLoadingStatus(ERunStatus.Continue);
             }
             // 风扇
-            else if (sender.Equals(this.BtnFan))
-            {
-                // 开风扇
-                if (this.BtnFan.Content.Equals((string)this.FindResource("FanOpen")))
-                {
-                    CmdHelper.FanOpen(false);
-                    this.BtnFan.Content = (string)this.FindResource("FanClose");
-                }
-                // 关风扇
-                else
-                {
-                    CmdHelper.FanClose(false);
-                    this.BtnFan.Content = (string)this.FindResource("FanOpen");
-                }
-            }
+            //else if (sender.Equals(this.BtnFan))
+            //{
+            //    // 开风扇
+            //    if (this.BtnFan.Content.Equals((string)this.FindResource("FanOpen")))
+            //    {
+            //        CmdHelper.FanOpen(false);
+            //        this.BtnFan.Content = (string)this.FindResource("FanClose");
+            //    }
+            //    // 关风扇
+            //    else
+            //    {
+            //        CmdHelper.FanClose(false);
+            //        this.BtnFan.Content = (string)this.FindResource("FanOpen");
+            //    }
+            //}
             // 转子1
             else if (sender.Equals(this.BtnShake1))
             {
