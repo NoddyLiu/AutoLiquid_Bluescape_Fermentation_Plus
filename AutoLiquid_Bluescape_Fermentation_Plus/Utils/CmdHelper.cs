@@ -1234,7 +1234,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                                 var openPumpDelayStart = DateTime.Now;
                                 while (Convert.ToInt32((DateTime.Now - openPumpDelayStart).TotalMilliseconds) < openPumpDelayMillSec)
                                 {
-                                    Thread.Sleep(5);
+                                    Thread.Sleep(100);
+                                    ManualStop(false);
                                 }
                                 // 关闭空气阀和泵
                                 ValveAndPumpClose(true);
@@ -1527,6 +1528,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                 }).GetAwaiter().GetResult();
             }
 
+            ManualStop(false);
+
             return true;
         }
 
@@ -1562,6 +1565,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                     });
                 }).GetAwaiter().GetResult();
             }
+
+            ManualStop(false);
 
             return true;
         }
@@ -1692,7 +1697,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                 {
                     ctx.Parallel("设置速度", wb =>
                     {
-                        wb.SpeedLevel(result);
+                        wb.SetSpeed(result);
                     });
                 }).GetAwaiter().GetResult();
             }

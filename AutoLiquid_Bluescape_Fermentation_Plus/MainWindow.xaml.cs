@@ -448,6 +448,14 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         CmdHelper.ResetAllLight(false);
                         // 关闭阀和泵
                         CmdHelper.ValveAndPumpClose(false);
+                        // 终止注射泵
+                        _ = CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
+                        {
+                            ctx.Parallel("终止指令", wb =>
+                            {
+                                wb.Terminate();
+                            });
+                        });
 
                         // 关闭紧急停止停止功能
                         if (ParamsHelper.IO.DoorAvailable || ParamsHelper.IO.EmergencyStopAvailable)

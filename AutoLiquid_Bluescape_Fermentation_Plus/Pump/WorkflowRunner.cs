@@ -204,6 +204,16 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Pump
         }
 
         /// <summary>
+        /// 终止指令
+        /// </summary>
+        public void Terminate()
+        {
+            // 发 T，清除任何残留 hold/error 状态
+            TerminateCmd();
+            ExecuteNow("预清除终止");
+        }
+
+        /// <summary>
         /// 初始化
         /// </summary>
         public void Init()

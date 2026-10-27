@@ -115,35 +115,54 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
             }
             else if (sender.Equals(this.BtnAbsorbLiquid))
             {
+                CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
+                {
+                    ctx.Parallel("设置速度", wb =>
+                    {
+                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
+                        wb.SetSpeed(speed);
+                    });
+                }).GetAwaiter().GetResult();
                 _ = CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
                 {
                     ctx.Parallel("吸液", wb =>
                     {
-                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
-                        wb.SetSpeed(speed);
                         CmdHelper.Ps(0, int.Parse(this.TextBoxAbsorbLiquid.Text), false);
                     });
                 });
             }
             else if (sender.Equals(this.BtnJetLiquid))
             {
+                CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
+                {
+                    ctx.Parallel("设置速度", wb =>
+                    {
+                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
+                        wb.SetSpeed(speed);
+                    });
+                }).GetAwaiter().GetResult();
                 _ = CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
                 {
                     ctx.Parallel("喷液", wb =>
                     {
-                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
-                        wb.SetSpeed(speed);
                         CmdHelper.Ps(0, int.Parse(this.TextBoxJetLiquid.Text) * -1, false);
                     });
                 });
             }
             else if (sender.Equals(this.BtnPos0))
             {
+                 CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
+                {
+                    ctx.Parallel("设置速度", wb =>
+                    {
+                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
+                        wb.SetSpeed(speed);
+                    });
+                }).GetAwaiter().GetResult();
                 _ = CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
                 {
                     ctx.Parallel("回零", wb =>
                     {
-                        wb.SetSpeed(10);
                         CmdHelper.Pa(0, 0, false);
                     });
                 });
