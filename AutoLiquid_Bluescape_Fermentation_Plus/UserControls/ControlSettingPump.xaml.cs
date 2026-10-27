@@ -49,6 +49,9 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
         private void InitWidget()
         {
             RefreshPortList();
+
+            this.ComboBoxSpeed.ItemsSource = Enumerable.Range(0, 41).Select(x => x.ToString()).ToList();
+            this.ComboBoxSpeed.SelectedItem = 10+"";
         }
 
         /// <summary>
@@ -116,7 +119,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
                 {
                     ctx.Parallel("吸液", wb =>
                     {
-                        wb.SetSpeed(10);
+                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
+                        wb.SetSpeed(speed);
                         CmdHelper.Ps(0, int.Parse(this.TextBoxAbsorbLiquid.Text), false);
                     });
                 });
@@ -127,7 +131,8 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
                 {
                     ctx.Parallel("喷液", wb =>
                     {
-                        wb.SetSpeed(10);
+                        var speed = int.Parse(this.ComboBoxSpeed.SelectedItem.ToString());
+                        wb.SetSpeed(speed);
                         CmdHelper.Ps(0, int.Parse(this.TextBoxJetLiquid.Text) * -1, false);
                     });
                 });

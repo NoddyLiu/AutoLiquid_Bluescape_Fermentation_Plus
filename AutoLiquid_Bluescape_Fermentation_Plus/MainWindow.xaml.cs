@@ -446,6 +446,9 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                         //CmdHelper.FanClose(false);
                         // 关闭指示灯
                         CmdHelper.ResetAllLight(false);
+                        // 关闭阀和泵
+                        CmdHelper.ValveAndPumpClose(false);
+
                         // 关闭紧急停止停止功能
                         if (ParamsHelper.IO.DoorAvailable || ParamsHelper.IO.EmergencyStopAvailable)
                             CmdHelper.EmergencyStopClose(false);

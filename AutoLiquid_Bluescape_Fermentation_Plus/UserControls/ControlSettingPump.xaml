@@ -24,6 +24,12 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="{StaticResource SettingTitleWidth}" HorizontalContentAlignment="Center" Content="{StaticResource SpeedLevel}" FontSize="{StaticResource MahApps.Font.Size.Default}" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                        <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                        <ComboBox x:Name="ComboBoxSpeed" Width="{StaticResource SettingPumpSpeedWidth}" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" IsReadOnly="True" ToolTip="{StaticResource Prompt_Speed_Level_Hint}"/>
+                    </StackPanel>
+
                     <Label HorizontalContentAlignment="Center" Content="{StaticResource AbsorbLiquid}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" />
                     <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
                     <TextBox x:Name="TextBoxAbsorbLiquid" Width="{StaticResource SettingValueWidth}" HorizontalContentAlignment="Center" Text="0" FontSize="{StaticResource MahApps.Font.Size.Default}"/>

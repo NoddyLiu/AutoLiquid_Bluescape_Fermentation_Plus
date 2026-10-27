@@ -1222,18 +1222,22 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
                                 /**
                                  * 吸入设定的空气，再次PA0
                                  */
-                                // 开泵延时计时
-                                var openPumpDelayStart = DateTime.Now;
                                 // 需要切换进水阀方向
                                 Ps(headUsedIndex, cleaningHeadAbsorbAirAfterJet, true, true);
                                 Pa(headUsedIndex, 0, true);
                                 // 喷空气后等待时间
                                 Thread.Sleep((int)(cleaningHeadJetAirDelay * 1000));
+                  
+                                // 打开空气阀和泵
+                                ValveAndPumpOpen(true);
                                 // 开泵延时
+                                var openPumpDelayStart = DateTime.Now;
                                 while (Convert.ToInt32((DateTime.Now - openPumpDelayStart).TotalMilliseconds) < openPumpDelayMillSec)
                                 {
                                     Thread.Sleep(5);
                                 }
+                                // 关闭空气阀和泵
+                                ValveAndPumpClose(true);
                             }
                             else
                                 Ps(headUsedIndex, volumeAirCleaningHead * -1, true);
@@ -1880,6 +1884,26 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         {
             LogHelper.Info((string)Application.Current.FindResource("CoolUnavailable"), "");
             DoCmd("AO50", isNeedManualStop);
+        }
+
+        /// <summary>
+        /// 空气阀和空气泵打开
+        /// <param name="isNeedManualStop">是否需要手动停止功能</param>
+        /// </summary>
+        public static void ValveAndPumpOpen(bool isNeedManualStop)
+        {
+            LogHelper.Info((string)Application.Current.FindResource("ValveAndPumpAvailable"), "");
+            DoCmd("AU1", isNeedManualStop);
+        }
+
+        /// <summary>
+        /// 空气阀和空气泵关闭
+        /// <param name="isNeedManualStop">是否需要手动停止功能</param>
+        /// </summary>
+        public static void ValveAndPumpClose(bool isNeedManualStop)
+        {
+            LogHelper.Info((string)Application.Current.FindResource("ValveAndPumpUnavailable"), "");
+            DoCmd("AU0", isNeedManualStop);
         }
 
         /// <summary>
