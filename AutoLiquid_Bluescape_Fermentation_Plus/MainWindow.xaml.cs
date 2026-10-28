@@ -1134,6 +1134,14 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus
                 catch (ManualStopException)
                 {
                 }
+                catch (Exception ex)
+                {
+                    Dispatcher.Invoke(() =>
+                    {
+                        SetLoadingStatus(ERunStatus.Stop);
+                        MessageBox.Show((string)this.FindResource("Prompt_Exec_Error") + "：" + ex.Message);
+                    });
+                }
             });
             thread.IsBackground = true;
             thread.Start();

@@ -418,4 +418,5 @@
     <s:String x:Key="Prompt_Pump_Disconnect_Pls_Check_Again">注射泵未连接，请检查！</s:String>
     <s:String x:Key="Prompt_Speed_Level_Hint">范围0~40。数值越大，速度越慢</s:String>
     <s:String x:Key="Prompt_Staggered">A1位置相对B1位置向右偏移半个孔距</s:String>
+    <s:String x:Key="Prompt_Exec_Error">程序执行异常，请查看日志！</s:String>
 </ResourceDictionary>

@@ -1691,6 +1691,9 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         /// <param name="speedLevel"></param>
         public static void PumpSpeedSet(string speedLevel)
         {
+            if (speedLevel == "")
+                return;
+
             if (int.TryParse(speedLevel, out int result))
             {
                 CmdHelper.pumpTransport.mgr.RunWorkflowAsync(PumpSelection.Left, ctx =>
