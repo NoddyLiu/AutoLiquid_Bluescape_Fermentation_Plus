@@ -107,6 +107,7 @@
     <Compile Include="Pump\Sp1Oem.cs" />
     <Compile Include="Pump\Sp1OemClient.cs" />
     <Compile Include="Pump\Sp1StatusParser.cs" />
+    <Compile Include="Pump\TcpTransport.cs" />
     <Compile Include="Pump\TtySTransport.cs" />
     <Compile Include="Pump\WorkflowRunner.cs" />
     <Compile Include="UserControls\ControlDataGridProcedureChain.xaml.cs">

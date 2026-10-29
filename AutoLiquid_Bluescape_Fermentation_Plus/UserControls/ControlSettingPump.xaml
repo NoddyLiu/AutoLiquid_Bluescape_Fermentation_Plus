@@ -15,9 +15,9 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0">
                 <StackPanel Orientation="Horizontal">
-                    <Label HorizontalContentAlignment="Center" Content="{StaticResource PortName}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" ToolTip="{StaticResource Prompt_Port_Name_Tooltip}"/>
-                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}"/>
-                    <ComboBox x:Name="ComboBoxPortName" Width="120" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" SelectedIndex="0">
+                    <Label HorizontalContentAlignment="Center" Content="{StaticResource PortName}" Width="{StaticResource SettingTitleWidth}" FontSize="{StaticResource MahApps.Font.Size.Default}" ToolTip="{StaticResource Prompt_Port_Name_Tooltip}" Visibility="Collapsed"/>
+                    <Label Width="{StaticResource SettingColonWidth}" Content=":" FontSize="{StaticResource MahApps.Font.Size.Default}" Visibility="Collapsed"/>
+                    <ComboBox x:Name="ComboBoxPortName" Width="120" HorizontalContentAlignment="Center" FontSize="{StaticResource MahApps.Font.Size.Default}" SelectedIndex="0" Visibility="Collapsed">
                     </ComboBox>
 
                     <Button x:Name="BtnInit" Content="{StaticResource Init}" Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Width="60" Height="30" FontSize="{StaticResource SettingBtnFontSize}" Margin="30,0,0,0"/>

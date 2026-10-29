@@ -48,7 +48,7 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
 
         private void InitWidget()
         {
-            RefreshPortList();
+            //RefreshPortList();
 
             this.ComboBoxSpeed.ItemsSource = Enumerable.Range(0, 41).Select(x => x.ToString()).ToList();
             this.ComboBoxSpeed.SelectedItem = 10+"";
@@ -58,33 +58,33 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.UserControls
         /// 扫描当前可用串口，刷新到 cmbPortName 下拉框。
         /// 保留当前选中（如果还在列表里）；否则选第一个。
         /// </summary>
-        public void RefreshPortList()
-        {
-            string[] ports;
-            try { ports = SerialPort.GetPortNames(); }
-            catch (Exception ex)
-            {
-                ports = new string[0];
-                LogHelper.Error("扫描串口失败");
-            }
+        //public void RefreshPortList()
+        //{
+        //    string[] ports;
+        //    try { ports = SerialPort.GetPortNames(); }
+        //    catch (Exception ex)
+        //    {
+        //        ports = new string[0];
+        //        LogHelper.Error("扫描串口失败");
+        //    }
 
-            this.ComboBoxPortName.Items.Clear();
-            if (ports == null || ports.Length == 0)
-            {
-                this.ComboBoxPortName.Items.Add("(未发现串口)");
-                this.ComboBoxPortName.SelectedIndex = 0;
-                LogHelper.Error("未发现任何可用串口（请确认设备已插好）");
-            }
-            else
-            {
-                foreach (var p in ports) this.ComboBoxPortName.Items.Add(p);
-                this.ComboBoxPortName.SelectedItem = ParamsHelper.HeadList[this.mHeadIndex].SerialPortName;
-            }
-        }
+        //    this.ComboBoxPortName.Items.Clear();
+        //    if (ports == null || ports.Length == 0)
+        //    {
+        //        this.ComboBoxPortName.Items.Add("(未发现串口)");
+        //        this.ComboBoxPortName.SelectedIndex = 0;
+        //        LogHelper.Error("未发现任何可用串口（请确认设备已插好）");
+        //    }
+        //    else
+        //    {
+        //        foreach (var p in ports) this.ComboBoxPortName.Items.Add(p);
+        //        this.ComboBoxPortName.SelectedItem = ParamsHelper.HeadList[this.mHeadIndex].SerialPortName;
+        //    }
+        //}
 
         private void ControlEvent()
         {
-            this.ComboBoxPortName.SelectionChanged += ComboBoxOnSelectionChanged;
+            //this.ComboBoxPortName.SelectionChanged += ComboBoxOnSelectionChanged;
 
             this.BtnInit.Click += BtnOnClick;
             this.BtnAbsorbLiquid.Click += BtnOnClick;

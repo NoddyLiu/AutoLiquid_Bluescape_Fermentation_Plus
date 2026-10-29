@@ -29,11 +29,12 @@ namespace AutoLiquid_Bluescape_Fermentation_Plus.Utils
         public static DAERun.FrmMain frmDAE = new DAERun.FrmMain("192.168.1.3", 4000, "workplate.xml");
 
         // 注射泵通信
-        public static TtySTransport pumpTransport = new TtySTransport(new TtySConfig
-        {
-            PortName = ParamsHelper.HeadList[0].SerialPortName,
-            BaudRate = ParamsHelper.HeadList[0].SerialBaudRate,
-        });
+        //public static TtySTransport pumpTransport = new TtySTransport(new TtySConfig
+        //{
+        //    PortName = ParamsHelper.HeadList[0].SerialPortName,
+        //    BaudRate = ParamsHelper.HeadList[0].SerialBaudRate,
+        //});
+        public static TcpTransport pumpTransport = new TcpTransport(new TcpConfig());
 
         // 用户手动干预
         public static bool isManualPause;
